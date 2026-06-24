@@ -1,0 +1,2632 @@
+<!doctype html>
+<html data-build="self-contained" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Pranav Gumma's cybersecurity consulting portfolio featuring a public-data Activision cyber risk assessment, NIST CSF profile, risk register, audit test plan, vulnerability intelligence, IAM review, and executive reporting." name="description"/>
+<meta content="#f4f2ec" name="theme-color"/>
+<title>Pranav Gumma | Activision Cyber Risk Case Study</title>
+<style id="embedded-site-styles">
+:root {
+  --ink: #111118;
+  --ink-soft: #272732;
+  --paper: #f4f2ec;
+  --paper-bright: #fffef9;
+  --paper-alt: #e9e7f5;
+  --panel: #14131b;
+  --panel-2: #1d1b28;
+  --panel-3: #292638;
+  --text: #f8f7f2;
+  --muted: #aaa6b6;
+  --muted-dark: #6f6c78;
+  --line: rgba(255,255,255,.12);
+  --line-dark: rgba(17,17,24,.12);
+  --acid: #b9ff66;
+  --accent: #b9ff66;
+  --purple: #9b87ff;
+  --pink: #ff8dcc;
+  --orange: #ff9b65;
+  --blue: #71c4ff;
+  --danger: #ff6f82;
+  --warn: #ffca65;
+  --success: #b9ff66;
+  --shadow-xl: 0 34px 90px rgba(20,16,40,.18);
+  --shadow-lg: 0 20px 55px rgba(20,16,40,.14);
+  --shadow-sm: 0 10px 30px rgba(20,16,40,.08);
+  --radius-xl: 34px;
+  --radius: 24px;
+  --radius-sm: 16px;
+  --shell: min(1240px, calc(100% - 48px));
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Manrope", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+button, input, select, textarea { font: inherit; }
+a { color: inherit; }
+img, svg { max-width: 100%; }
+::selection { background: var(--acid); color: var(--ink); }
+
+.skip-link {
+  position: fixed;
+  left: 18px;
+  top: -90px;
+  z-index: 1000;
+  background: var(--ink);
+  color: white;
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 18px; }
+
+.shell { width: var(--shell); margin-inline: auto; }
+.section-pad { padding: 118px 0; }
+.section-dark {
+  position: relative;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 15%, rgba(155,135,255,.18), transparent 28%),
+    radial-gradient(circle at 90% 65%, rgba(185,255,102,.09), transparent 25%),
+    #111018;
+  overflow: hidden;
+}
+.section-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 92%);
+}
+.section-dark > .shell { position: relative; }
+
+/* Header */
+.site-header {
+  position: fixed;
+  inset: 18px 0 auto;
+  z-index: 100;
+  pointer-events: none;
+}
+.nav-wrap {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 9px 10px 9px 12px;
+  background: rgba(255,254,249,.82);
+  border: 1px solid rgba(17,17,24,.09);
+  border-radius: 999px;
+  box-shadow: 0 14px 45px rgba(29,22,48,.10);
+  backdrop-filter: blur(20px) saturate(135%);
+  pointer-events: auto;
+}
+.brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--acid);
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  letter-spacing: -.08em;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.13);
+}
+.brand strong, .brand small { display: block; line-height: 1.2; }
+.brand strong { font-size: .88rem; letter-spacing: -.02em; }
+.brand small { color: var(--muted-dark); font-size: .66rem; margin-top: 3px; }
+.primary-nav { display: flex; align-items: center; gap: 8px; }
+.primary-nav a {
+  text-decoration: none;
+  color: #55515e;
+  font-weight: 700;
+  font-size: .78rem;
+  padding: 11px 13px;
+  border-radius: 999px;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+.primary-nav a:hover { color: var(--ink); background: rgba(17,17,24,.055); }
+.primary-nav .button { color: var(--text); padding-inline: 19px; }
+.nav-toggle { display: none; }
+
+/* Type and shared controls */
+h1, h2, h3, h4 {
+  margin: 0;
+  color: inherit;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.055em;
+}
+h1 { font-size: clamp(4rem, 7.25vw, 7.6rem); max-width: 930px; }
+h2 { font-size: clamp(2.7rem, 5vw, 5.2rem); }
+h3 { font-size: clamp(1.9rem, 3vw, 3.25rem); }
+h4 { font-size: 1.35rem; letter-spacing: -.035em; }
+.eyebrow {
+  margin: 0 0 15px;
+  color: #615f6a;
+  text-transform: uppercase;
+  letter-spacing: .17em;
+  font-family: "DM Mono", monospace;
+  font-size: .68rem;
+  font-weight: 500;
+}
+.section-dark .eyebrow, .project-panel .eyebrow { color: var(--acid); }
+.button {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 23px;
+  font-weight: 800;
+  font-size: .84rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(17,17,24,.15);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+.button span { transition: transform .2s ease; }
+.button:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(17,17,24,.20); }
+.button:hover span { transform: translate(2px,-2px); }
+.button:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(155,135,255,.55);
+  outline-offset: 3px;
+}
+.button:disabled { opacity: .42; cursor: not-allowed; transform: none; box-shadow: none; }
+.button-small { min-height: 38px; padding: 0 15px; font-size: .74rem; }
+.button-ghost { background: transparent; color: inherit; border-color: currentColor; box-shadow: none; opacity: .84; }
+.button-ghost:hover { opacity: 1; background: rgba(255,255,255,.06); box-shadow: none; }
+.button-light { background: var(--paper-bright); color: var(--ink); }
+
+/* Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 940px;
+  padding-top: 150px;
+  background:
+    radial-gradient(circle at 84% 18%, rgba(155,135,255,.29), transparent 24%),
+    radial-gradient(circle at 10% 70%, rgba(255,141,204,.15), transparent 27%),
+    linear-gradient(135deg, #faf8f2 0%, #f0eee9 58%, #e9e3fa 100%);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  right: -260px;
+  top: -210px;
+  border-radius: 50%;
+  border: 1px solid rgba(17,17,24,.08);
+  box-shadow: 0 0 0 70px rgba(255,255,255,.18), 0 0 0 140px rgba(255,255,255,.11);
+}
+.hero::after {
+  content: "RISK / CONTROLS / CLOUD / IDENTITY";
+  position: absolute;
+  left: -36px;
+  bottom: 44px;
+  color: rgba(17,17,24,.045);
+  font-size: clamp(3rem, 9vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -.07em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(420px, .88fr);
+  gap: 74px;
+  align-items: center;
+  min-height: 710px;
+}
+.hero-copy { padding-bottom: 30px; }
+.hero-kicker {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 34px;
+  padding: 8px 13px;
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  background: rgba(255,255,255,.57);
+  color: #4d4955;
+  font-size: .7rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 0 5px rgba(185,255,102,.16); flex: 0 0 auto; }
+.headline-accent {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(100deg, #6f56e8, #b34288 45%, #e57a3e 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.headline-accent::after {
+  content: "";
+  position: absolute;
+  left: 1%;
+  right: 0;
+  bottom: -.08em;
+  height: .12em;
+  background: var(--acid);
+  border-radius: 999px;
+  transform: rotate(-1.5deg);
+  z-index: -1;
+}
+.hero-lede { max-width: 720px; color: #55515e; font-size: 1.11rem; margin: 30px 0 0; line-height: 1.72; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.hero-actions .button-ghost { color: var(--ink); border-color: rgba(17,17,24,.16); background: rgba(255,255,255,.3); }
+.hero-actions .button-ghost:hover { background: rgba(255,255,255,.7); }
+.hero-proof { display: flex; flex-wrap: wrap; gap: 0; margin-top: 56px; }
+.hero-proof div { display: grid; gap: 3px; min-width: 145px; padding-right: 32px; margin-right: 32px; border-right: 1px solid var(--line-dark); }
+.hero-proof div:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+.hero-proof strong { font-size: 1.85rem; letter-spacing: -.06em; }
+.hero-proof span { color: #77737d; font-size: .69rem; font-weight: 600; }
+
+.hero-panel {
+  position: relative;
+  isolation: isolate;
+  min-height: 595px;
+  padding: 24px;
+  color: var(--text);
+  background: linear-gradient(155deg, #24212f 0%, #111018 56%, #17131f 100%);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 34px;
+  box-shadow: 0 36px 90px rgba(35,25,61,.28), inset 0 1px 0 rgba(255,255,255,.08);
+  transform: rotate(1.1deg);
+}
+.panel-glow {
+  position: absolute;
+  z-index: -1;
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: 120px;
+  border-radius: 50%;
+  background: rgba(155,135,255,.25);
+  filter: blur(70px);
+}
+.panel-topline {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  color: #8e899b;
+  font-family: "DM Mono", monospace;
+  font-size: .61rem;
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--line);
+}
+.panel-topline > span:first-child { display: flex; gap: 5px; }
+.panel-topline i { width: 7px; height: 7px; display: block; border-radius: 50%; background: #4c4857; }
+.panel-topline i:nth-child(1) { background: #ff806f; }
+.panel-topline i:nth-child(2) { background: #ffc55e; }
+.panel-topline i:nth-child(3) { background: #78d98f; }
+.panel-live { justify-self: end; display: flex; align-items: center; gap: 6px; color: #cac6d2; }
+.panel-live b { width: 6px; height: 6px; background: var(--acid); border-radius: 50%; box-shadow: 0 0 10px var(--acid); }
+.panel-dashboard-head { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin: 28px 0 20px; }
+.panel-dashboard-head small { color: #8d8898; font-family: "DM Mono", monospace; font-size: .57rem; letter-spacing: .12em; }
+.panel-dashboard-head h2 { font-size: 2rem; margin-top: 6px; }
+.panel-period { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; color: #aaa5b4; font-size: .62rem; }
+.panel-score-grid { display: grid; grid-template-columns: 1.35fr .85fr; gap: 10px; }
+.panel-score-card {
+  display: grid;
+  align-content: space-between;
+  min-height: 134px;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.045);
+}
+.panel-score-card > span, .panel-score-card > small { color: #a5a0b0; font-size: .62rem; }
+.panel-score-card strong { font-size: 2.4rem; letter-spacing: -.07em; }
+.panel-score-card strong small { font-size: .72rem; color: #9a95a5; margin-left: 4px; }
+.panel-score-primary { color: var(--ink); background: var(--acid); border-color: rgba(185,255,102,.7); }
+.panel-score-primary > span, .panel-score-primary > small { color: rgba(17,17,24,.65); }
+.panel-score-primary strong small { color: rgba(17,17,24,.5); }
+.mini-progress { height: 5px; border-radius: 999px; background: rgba(17,17,24,.14); overflow: hidden; }
+.mini-progress i { display: block; width: 67%; height: 100%; border-radius: inherit; background: var(--ink); }
+.trend-up { color: var(--orange); font-weight: 700; }
+.panel-chart { margin-top: 10px; padding: 15px 16px 5px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.025); }
+.chart-label { display: flex; justify-content: space-between; align-items: center; color: #9b96a5; font-size: .62rem; }
+.chart-label b { color: var(--acid); font-size: .76rem; }
+.panel-chart svg { display: block; width: 100%; margin-top: 8px; overflow: visible; }
+.chart-area { fill: url(#chartFill); }
+.chart-line { fill: none; stroke: var(--acid); stroke-width: 3; stroke-linecap: round; }
+.panel-chart circle { fill: var(--acid); stroke: #111018; stroke-width: 4; }
+.panel-events { display: grid; gap: 8px; margin-top: 10px; }
+.panel-events > div { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,.035); }
+.event-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; color: var(--ink); font-family: "DM Mono", monospace; font-size: .6rem; font-weight: 500; }
+.event-purple { background: var(--purple); }
+.event-orange { background: var(--orange); }
+.panel-events p { margin: 0; line-height: 1.25; }
+.panel-events strong, .panel-events small { display: block; }
+.panel-events strong { font-size: .68rem; }
+.panel-events small { color: #8f8a99; font-size: .56rem; margin-top: 3px; }
+.panel-events > div > b { color: #aaa5b4; font-size: .56rem; font-weight: 600; }
+.floating-note {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 33px 1fr;
+  gap: 10px;
+  align-items: center;
+  min-width: 175px;
+  padding: 12px;
+  color: var(--ink);
+  background: rgba(255,254,249,.94);
+  border: 1px solid rgba(17,17,24,.08);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(26,19,43,.20);
+  backdrop-filter: blur(12px);
+  animation: float 5s ease-in-out infinite;
+}
+.floating-note > span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: var(--acid); font-weight: 900; }
+.floating-note p { margin: 0; line-height: 1.2; }
+.floating-note strong, .floating-note small { display: block; }
+.floating-note strong { font-size: .68rem; }
+.floating-note small { color: #77727e; font-size: .55rem; margin-top: 4px; }
+.floating-note-a { left: -68px; bottom: 72px; transform: rotate(-3deg); }
+.floating-note-b { right: -70px; top: 102px; transform: rotate(4deg); animation-delay: -2s; }
+.floating-note-b > span { background: var(--pink); }
+@keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -9px; } }
+
+/* Marquee */
+.ticker { overflow: hidden; color: var(--text); background: var(--ink); border-block: 1px solid rgba(255,255,255,.08); }
+.ticker-track { display: flex; width: max-content; animation: marquee 35s linear infinite; }
+.ticker-group { display: flex; flex-shrink: 0; align-items: center; padding: 17px 0; }
+.ticker span { display: flex; align-items: center; color: #b8b3c1; font-family: "DM Mono", monospace; font-size: .64rem; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+.ticker span::after { content: "✦"; color: var(--acid); margin: 0 25px; font-size: .78rem; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Section headers */
+.section-heading { display: grid; grid-template-columns: 1.12fr .88fr; gap: 90px; align-items: end; margin-bottom: 54px; }
+.section-heading > p { color: var(--muted-dark); margin: 0; max-width: 620px; }
+.section-dark .section-heading > p { color: #aaa6b6; }
+
+/* Project lab */
+#projects { position: relative; }
+#projects::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  left: -110px;
+  top: 130px;
+  border-radius: 50%;
+  border: 1px solid rgba(17,17,24,.08);
+  box-shadow: 0 0 0 45px rgba(155,135,255,.08);
+  pointer-events: none;
+}
+.project-tabs {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  padding: 7px;
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  background: rgba(255,255,255,.62);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(14px);
+}
+.project-tab {
+  border: 0;
+  background: transparent;
+  color: #74717b;
+  min-height: 50px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: .72rem;
+  cursor: pointer;
+  transition: .2s ease;
+}
+.project-tab:hover { color: var(--ink); background: rgba(17,17,24,.045); }
+.project-tab.is-active { background: var(--ink); color: var(--text); box-shadow: 0 9px 24px rgba(17,17,24,.18); }
+.project-panel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 22px;
+  padding: 38px;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 98% 0%, rgba(155,135,255,.14), transparent 26%),
+    linear-gradient(145deg, #181721, #0f0e15 72%);
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+}
+.project-panel::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -115px;
+  bottom: -115px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 0 0 35px rgba(255,255,255,.025), 0 0 0 70px rgba(255,255,255,.018);
+  pointer-events: none;
+}
+.project-panel[hidden] { display: none; }
+.project-panel.is-active { animation: panelIn .45s cubic-bezier(.22,.8,.28,1); }
+@keyframes panelIn { from { opacity: 0; transform: translateY(12px) scale(.995); } to { opacity: 1; transform: none; } }
+.project-intro { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr .75fr; gap: 44px; align-items: end; padding-bottom: 31px; border-bottom: 1px solid var(--line); }
+.project-intro p { color: #aaa6b6; margin-bottom: 0; }
+.project-number { color: var(--acid) !important; text-transform: uppercase; letter-spacing: .16em; font-family: "DM Mono", monospace; font-size: .65rem; font-weight: 500; }
+.project-meta { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.project-meta span { border: 1px solid var(--line); color: #cbc7d2; border-radius: 999px; padding: 7px 11px; font-size: .64rem; font-weight: 700; }
+.data-banner { display: flex; align-items: center; gap: 10px; margin: 24px 0; padding: 13px 15px; border-radius: 14px; background: rgba(185,255,102,.08); color: #dfffc0; border: 1px solid rgba(185,255,102,.17); font-size: .76rem; }
+.data-banner.is-error { background: rgba(255,111,130,.08); color: #ffd0d8; border-color: rgba(255,111,130,.22); }
+.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.metric-card, .dashboard-card { border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.035); }
+.metric-card { position: relative; overflow: hidden; padding: 20px; display: grid; gap: 5px; min-height: 134px; align-content: space-between; }
+.metric-card::after { content: ""; position: absolute; width: 55px; height: 55px; right: -18px; top: -18px; border-radius: 50%; background: rgba(155,135,255,.15); filter: blur(4px); }
+.metric-card:nth-child(2)::after { background: rgba(255,141,204,.17); }
+.metric-card:nth-child(3)::after { background: rgba(113,196,255,.17); }
+.metric-card:nth-child(4)::after { background: rgba(255,155,101,.17); }
+.metric-card span, .metric-card small { color: #9691a1; font-size: .68rem; }
+.metric-card strong { font-size: 2.15rem; letter-spacing: -.07em; }
+.dashboard-grid { margin-top: 14px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.dashboard-card { position: relative; z-index: 1; padding: 22px; min-width: 0; }
+.span-2 { grid-column: span 2; }
+.card-heading { display: flex; justify-content: space-between; gap: 20px; align-items: start; margin-bottom: 19px; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+label { color: #aaa6b6; font-size: .69rem; font-weight: 700; }
+label > span { display: block; margin-bottom: 5px; }
+input, select, textarea {
+  width: 100%;
+  color: var(--text);
+  background: rgba(8,7,12,.66);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 12px;
+  padding: 10px 11px;
+  outline: none;
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+input::placeholder, textarea::placeholder { color: #6f6a7a; }
+input:focus, select:focus, textarea:focus { border-color: rgba(185,255,102,.55); background: rgba(12,11,17,.9); box-shadow: 0 0 0 4px rgba(185,255,102,.07); }
+select option { background: #15131d; color: var(--text); }
+.filter-row input, .filter-row select { min-width: 132px; padding: 8px 9px; font-size: .7rem; }
+.table-wrap { overflow-x: auto; scrollbar-width: thin; scrollbar-color: #4c4855 transparent; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 13px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: #827d8d; font-family: "DM Mono", monospace; font-size: .59rem; text-transform: uppercase; letter-spacing: .09em; font-weight: 500; }
+td { color: #d5d1dc; font-size: .73rem; }
+td strong, td small { display: block; }
+td small { color: #8f8a99; margin-top: 3px; }
+td a { color: var(--acid); text-decoration: none; font-weight: 800; }
+tbody tr { transition: background .18s ease; }
+tbody tr:hover { background: rgba(255,255,255,.025); }
+.priority-pill, .risk-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 5px 8px; font-size: .61rem; font-weight: 900; white-space: nowrap; }
+.priority-critical, .risk-critical { background: rgba(255,111,130,.14); color: #ffb5c0; }
+.priority-high, .risk-high { background: rgba(255,202,101,.13); color: #ffdd9f; }
+.priority-medium, .risk-medium { background: rgba(113,196,255,.13); color: #adddff; }
+.priority-low, .risk-low { background: rgba(185,255,102,.11); color: #d9ffad; }
+.pagination-row { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 15px; color: #8f8a99; font-size: .68rem; }
+.bar-chart { display: grid; gap: 13px; }
+.bar-row { display: grid; grid-template-columns: 98px 1fr 34px; gap: 10px; align-items: center; font-size: .68rem; color: #aaa6b6; }
+.bar-row > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-row b { color: #ddd9e3; font-size: .68rem; text-align: right; }
+.bar-track { height: 7px; border-radius: 999px; background: rgba(255,255,255,.07); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--purple), var(--acid)); }
+.score-method { display: grid; gap: 10px; }
+.score-method div { display: grid; grid-template-columns: 52px 1fr; gap: 11px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.score-method div:last-child { border-bottom: 0; }
+.score-method strong { color: var(--acid); }
+.score-method span { color: #aaa6b6; font-size: .74rem; }
+.fine-print, .muted { color: #8f8a99; font-size: .68rem; }
+
+/* CSF assessment */
+.assessment-layout { display: grid; grid-template-columns: 1.45fr .55fr; gap: 16px; margin-top: 25px; }
+.assessment-controls { min-width: 0; }
+.assessment-note { margin-bottom: 14px; padding: 14px 16px; border-radius: 15px; color: #aaa6b6; background: rgba(155,135,255,.07); border: 1px solid rgba(155,135,255,.15); font-size: .73rem; }
+.csf-function { margin-bottom: 11px; border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: rgba(255,255,255,.02); }
+.csf-function-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 17px; background: rgba(255,255,255,.028); }
+.csf-function-header span { color: var(--acid); font-family: "DM Mono", monospace; font-size: .64rem; font-weight: 500; }
+.csf-outcomes { padding: 5px 17px 13px; }
+.csf-outcome { display: grid; grid-template-columns: 1fr 220px; gap: 20px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.csf-outcome:last-child { border-bottom: 0; }
+.csf-outcome strong { display: block; font-size: .75rem; }
+.csf-outcome small { color: #918c9b; font-size: .65rem; }
+.range-wrap { display: grid; grid-template-columns: 1fr 34px; gap: 10px; align-items: center; }
+input[type="range"] { padding: 0; accent-color: var(--acid); box-shadow: none; }
+.range-value { display: grid; place-items: center; width: 34px; height: 30px; border-radius: 9px; background: rgba(5,5,8,.5); border: 1px solid var(--line); color: var(--text); font-weight: 800; }
+.assessment-summary { position: sticky; top: 108px; align-self: start; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.035); padding: 26px; text-align: center; }
+.score-ring { width: 150px; height: 150px; margin: 0 auto 19px; border-radius: 50%; display: grid; place-items: center; align-content: center; background: conic-gradient(var(--acid) 0deg, rgba(255,255,255,.08) 0deg); position: relative; box-shadow: 0 14px 36px rgba(0,0,0,.16); }
+.score-ring::before { content: ""; position: absolute; width: 114px; height: 114px; border-radius: 50%; background: #181620; }
+.score-ring span, .score-ring small { position: relative; z-index: 1; }
+.score-ring span { font-size: 2.25rem; font-weight: 800; letter-spacing: -.07em; }
+.score-ring small { color: #918c9b; font-size: .66rem; }
+.assessment-summary > p { color: #9691a1; font-size: .73rem; }
+.function-scores { display: grid; gap: 9px; margin: 21px 0; text-align: left; }
+.function-score { display: grid; grid-template-columns: 76px 1fr 30px; gap: 8px; align-items: center; font-size: .65rem; color: #aaa6b6; }
+.function-score .bar-track { height: 5px; }
+.roadmap-card { margin-top: 15px; }
+.roadmap-phase { display: grid; grid-template-columns: 120px 1fr; gap: 17px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+.roadmap-phase:last-child { border-bottom: 0; }
+.roadmap-phase > strong { color: var(--acid); font-size: .78rem; }
+.roadmap-phase ul { margin: 0; padding-left: 18px; color: #cbc7d2; font-size: .75rem; }
+
+/* IAM */
+.iam-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 24px; }
+#iam-policy { min-height: 390px; font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .7rem; line-height: 1.65; resize: vertical; }
+.iam-score { display: flex; align-items: end; gap: 8px; padding: 18px 0; }
+.iam-score strong { font-size: 3.7rem; line-height: 1; letter-spacing: -.08em; }
+.iam-score span { color: #918c9b; font-size: .7rem; padding-bottom: 7px; }
+.finding-list { display: grid; gap: 9px; }
+.finding { display: grid; grid-template-columns: 12px 1fr; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.025); }
+.finding-icon { width: 9px; height: 9px; border-radius: 50%; background: var(--warn); margin-top: 5px; box-shadow: 0 0 12px currentColor; }
+.finding strong { font-size: .76rem; }
+.finding p { margin: 4px 0; color: #9691a1; font-size: .68rem; }
+.finding small { color: #bbb7c3; font-size: .62rem; }
+.finding.severity-critical .finding-icon { background: var(--danger); }
+.finding.severity-high .finding-icon { background: var(--warn); }
+.finding.severity-medium .finding-icon { background: var(--blue); }
+.finding.severity-low .finding-icon { background: var(--acid); }
+
+/* Executive report */
+.report-builder { display: grid; grid-template-columns: .72fr 1.28fr; gap: 15px; margin-top: 24px; }
+.report-form { display: grid; gap: 13px; align-content: start; }
+.report-form textarea { min-height: 130px; resize: vertical; }
+.executive-report { min-height: 570px; border-radius: 22px; background: #fbfaf6; color: #1d1d24; padding: 42px; box-shadow: 0 25px 65px rgba(0,0,0,.28); transform: rotate(.35deg); }
+.report-placeholder { min-height: 480px; display: grid; place-items: center; align-content: center; color: #77737e; text-align: center; }
+.report-placeholder span { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--ink); color: var(--acid); font-family: "DM Mono", monospace; font-weight: 500; font-size: 1.25rem; }
+.report-head { display: flex; justify-content: space-between; gap: 24px; padding-bottom: 23px; border-bottom: 2px solid #1d1d24; }
+.report-head p, .report-head small { margin: 0; color: #6d6974; }
+.report-head h3 { font-size: 2.05rem; color: #111118; }
+.report-section { padding: 23px 0; border-bottom: 1px solid #ddd9d1; }
+.report-section h4 { color: #111118; font-size: 1rem; margin-bottom: 8px; }
+.report-section p, .report-section li { color: #44414c; font-size: .8rem; }
+.report-section ul { padding-left: 20px; }
+.report-callout { margin-top: 20px; padding: 18px; border-radius: 14px; background: #ebffd7; border-left: 4px solid #6ea82e; }
+.report-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.report-actions .button { background: #111118; color: white; }
+.report-actions .button-ghost { color: #111118; border-color: #c9c4ba; background: transparent; }
+
+/* Crosswalk */
+.crosswalk-toolbar { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.crosswalk-toolbar select { min-width: 260px; }
+.crosswalk-table-wrap { border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.025); }
+.crosswalk-table { min-width: 1120px; }
+.crosswalk-table td:first-child { color: var(--text); font-weight: 800; }
+.crosswalk-table td { font-size: .67rem; }
+
+/* Method bento */
+.method-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(235px, auto); gap: 14px; }
+.method-grid article {
+  position: relative;
+  overflow: hidden;
+  grid-column: span 2;
+  min-height: 260px;
+  padding: 25px;
+  color: var(--ink);
+  border: 1px solid var(--line-dark);
+  border-radius: 26px;
+  background: #fffdf8;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.method-grid article:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.method-grid article:nth-child(1), .method-grid article:nth-child(4) { grid-column: span 3; }
+.method-grid article:nth-child(1) { background: var(--acid); }
+.method-grid article:nth-child(2) { background: #dcd4ff; }
+.method-grid article:nth-child(3) { background: #ffd5ea; }
+.method-grid article:nth-child(4) { color: var(--text); background: #17151f; }
+.method-grid article:nth-child(5) { background: #ffd8bf; }
+.method-grid article::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -45px;
+  top: -45px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: .09;
+  box-shadow: 0 0 0 25px currentColor;
+}
+.method-grid span { display: grid; place-items: center; width: 39px; height: 39px; border-radius: 50%; background: rgba(17,17,24,.09); color: currentColor; font-family: "DM Mono", monospace; font-size: .67rem; font-weight: 500; }
+.method-grid article:nth-child(4) span { background: rgba(255,255,255,.09); color: var(--acid); }
+.method-grid h3 { margin-top: 58px; font-size: 1.45rem; max-width: 280px; }
+.method-grid p { color: rgba(17,17,24,.67); font-size: .76rem; max-width: 400px; }
+.method-grid article:nth-child(4) p { color: #aaa6b6; }
+
+/* CTA */
+.contact-cta { padding-top: 20px; }
+.contact-cta-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 88px clamp(28px, 8vw, 110px);
+  color: var(--text);
+  text-align: center;
+  background: linear-gradient(135deg, #6e5ce3 0%, #8f6deb 47%, #bb6ba3 100%);
+  border-radius: 36px;
+  box-shadow: var(--shadow-xl);
+}
+.contact-cta-card::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.20) 1px, transparent 1px); background-size: 24px 24px; mask-image: linear-gradient(120deg, black, transparent 72%); z-index: -1; }
+.contact-cta-card .eyebrow { color: rgba(255,255,255,.72); }
+.contact-cta-card h2 { max-width: 920px; margin: 0 auto; }
+.contact-cta-card > p:not(.eyebrow) { max-width: 720px; margin: 25px auto 31px; color: rgba(255,255,255,.77); }
+.cta-orb { position: absolute; z-index: -1; border-radius: 50%; filter: blur(1px); }
+.cta-orb-one { width: 280px; height: 280px; left: -90px; bottom: -110px; background: var(--acid); opacity: .8; }
+.cta-orb-two { width: 200px; height: 200px; right: -70px; top: -70px; background: var(--pink); opacity: .65; }
+
+/* Sources */
+.source-section { color: var(--ink); background: #e8e5f5; }
+.source-section .eyebrow { color: #655d8c; }
+.source-section .section-heading > p { color: #696576; }
+.source-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.source-grid a {
+  position: relative;
+  display: block;
+  min-height: 155px;
+  padding: 20px 48px 20px 20px;
+  border: 1px solid rgba(17,17,24,.10);
+  border-radius: 20px;
+  background: rgba(255,255,255,.72);
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(40,31,68,.06);
+  transition: transform .22s ease, background .22s ease, box-shadow .22s ease;
+}
+.source-grid a::after { content: "↗"; position: absolute; right: 18px; top: 17px; width: 29px; height: 29px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--acid); font-size: .7rem; transition: transform .22s ease; }
+.source-grid a:hover { transform: translateY(-6px); background: white; box-shadow: var(--shadow-sm); }
+.source-grid a:hover::after { transform: rotate(45deg); }
+.source-grid strong, .source-grid span { display: block; }
+.source-grid strong { font-size: .82rem; line-height: 1.4; }
+.source-grid span { margin-top: 12px; color: #696576; font-size: .7rem; }
+.source-note { color: #706c79; font-size: .69rem; margin: 25px 0 0; }
+
+/* Footer */
+.site-footer { padding: 42px 0; color: var(--text); background: #111018; border-top: 1px solid rgba(255,255,255,.08); }
+.footer-grid { display: flex; justify-content: space-between; gap: 24px; color: #9691a1; }
+.footer-grid strong, .footer-grid a { color: var(--text); }
+.footer-grid a { text-decoration-color: rgba(185,255,102,.55); text-underline-offset: 4px; }
+.footer-grid p { margin: 4px 0 0; font-size: .72rem; }
+
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+
+/* Scroll polish */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.22,.8,.28,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (max-width: 1120px) {
+  .hero { min-height: auto; }
+  .hero-grid { grid-template-columns: 1fr; gap: 65px; min-height: auto; padding-bottom: 120px; }
+  .hero-copy { max-width: 900px; }
+  .hero-panel { width: min(620px, 90%); margin-inline: auto; }
+  .floating-note-a { left: -45px; }
+  .floating-note-b { right: -45px; }
+  .method-grid { grid-template-columns: repeat(2, 1fr); }
+  .method-grid article, .method-grid article:nth-child(1), .method-grid article:nth-child(4) { grid-column: span 1; }
+  .source-grid { grid-template-columns: repeat(2, 1fr); }
+  .metric-grid { grid-template-columns: repeat(2, 1fr); }
+  .assessment-layout, .iam-layout, .report-builder { grid-template-columns: 1fr; }
+  .assessment-summary { position: static; }
+}
+
+@media (max-width: 820px) {
+  :root { --shell: min(100% - 24px, 1240px); }
+  .section-pad { padding: 84px 0; }
+  .site-header { inset: 10px 0 auto; }
+  .nav-wrap { border-radius: 20px; min-height: 60px; }
+  .brand small { display: none; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line-dark); color: var(--ink); background: transparent; border-radius: 999px; padding: 8px 13px; font-weight: 800; font-size: .72rem; }
+  .primary-nav { display: none; position: absolute; left: 12px; right: 12px; top: 67px; flex-direction: column; align-items: stretch; padding: 12px; background: rgba(255,254,249,.96); border: 1px solid var(--line-dark); border-radius: 18px; box-shadow: var(--shadow-lg); backdrop-filter: blur(18px); }
+  .primary-nav.is-open { display: flex; }
+  .primary-nav a { padding: 12px 14px; }
+  .hero { padding-top: 120px; }
+  .hero-grid { gap: 50px; padding-bottom: 90px; }
+  h1 { font-size: clamp(3.5rem, 14vw, 6rem); }
+  .hero-proof { gap: 24px; }
+  .hero-proof div { border-right: 0; padding-right: 0; margin-right: 0; min-width: 120px; }
+  .hero-panel { width: 100%; transform: none; }
+  .floating-note { display: none; }
+  .section-heading, .project-intro { grid-template-columns: 1fr; gap: 22px; }
+  .section-heading { margin-bottom: 38px; }
+  .project-meta { justify-content: flex-start; }
+  .project-tabs { grid-template-columns: 1fr 1fr; border-radius: 22px; }
+  .project-tab { border-radius: 16px; text-align: left; }
+  .project-panel { padding: 22px; border-radius: 26px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .span-2 { grid-column: auto; }
+  .card-heading { flex-direction: column; }
+  .filter-row { justify-content: flex-start; width: 100%; }
+  .filter-row label { flex: 1 1 150px; }
+  .method-grid { grid-template-columns: 1fr; }
+  .method-grid article { min-height: 230px; }
+  .source-grid { grid-template-columns: 1fr; }
+  .footer-grid { flex-direction: column; }
+  .csf-outcome { grid-template-columns: 1fr; gap: 10px; }
+  .executive-report { padding: 26px; transform: none; }
+  .report-head { flex-direction: column; }
+  .contact-cta-card { border-radius: 26px; }
+}
+
+@media (max-width: 540px) {
+  .hero-kicker { font-size: .62rem; }
+  .hero-panel { padding: 17px; min-height: auto; border-radius: 25px; }
+  .panel-score-grid { grid-template-columns: 1fr; }
+  .panel-score-card { min-height: 118px; }
+  .panel-events > div { grid-template-columns: 32px 1fr; }
+  .panel-events > div > b { display: none; }
+  .metric-grid, .project-tabs { grid-template-columns: 1fr; }
+  .project-tabs { border-radius: 18px; }
+  .hero-actions .button { width: 100%; }
+  .hero-proof { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .crosswalk-toolbar { align-items: stretch; flex-direction: column; }
+  .contact-cta-card { text-align: left; }
+  .contact-cta-card .button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+@media print {
+  body * { visibility: hidden; }
+  #executive-report, #executive-report * { visibility: visible; }
+  #executive-report { position: absolute; inset: 0; width: 100%; box-shadow: none; transform: none; }
+  .report-actions { display: none; }
+}
+
+/* Flagship public-company case study */
+.flagship-case {
+  position: relative;
+  padding: 120px 0;
+  background:
+    radial-gradient(circle at 5% 5%, rgba(113,196,255,.14), transparent 25%),
+    radial-gradient(circle at 95% 18%, rgba(185,255,102,.10), transparent 22%),
+    linear-gradient(180deg, #0d0d13 0%, #12111a 100%);
+  color: var(--text);
+  overflow: hidden;
+}
+.flagship-case::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 94%);
+  pointer-events: none;
+}
+.flagship-case > .shell { position: relative; }
+.case-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+  gap: 56px;
+  align-items: end;
+  margin-bottom: 52px;
+}
+.case-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-bottom: 18px;
+  padding: 8px 12px;
+  border: 1px solid rgba(185,255,102,.3);
+  border-radius: 999px;
+  background: rgba(185,255,102,.08);
+  color: var(--acid);
+  font-family: "DM Mono", monospace;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.case-kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 0 5px rgba(185,255,102,.10); }
+.case-title { font-size: clamp(3.2rem, 6vw, 6.3rem); max-width: 980px; }
+.case-title em { color: var(--acid); font-style: normal; }
+.case-lede { max-width: 790px; margin: 24px 0 0; color: #c8c5d0; font-size: 1.12rem; line-height: 1.75; }
+.case-disclaimer {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  background: rgba(255,255,255,.055);
+  padding: 24px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.case-disclaimer strong { display: block; margin-bottom: 7px; color: var(--acid); font-size: .82rem; text-transform: uppercase; letter-spacing: .12em; }
+.case-disclaimer p { margin: 0; color: #bbb7c6; font-size: .86rem; line-height: 1.7; }
+.case-disclaimer .case-date { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.1); color: #8f8a9c; font-family: "DM Mono", monospace; font-size: .68rem; }
+.case-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 44px; }
+.case-stat {
+  min-height: 168px;
+  padding: 23px;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+  box-shadow: 0 24px 50px rgba(0,0,0,.14);
+}
+.case-stat span { display: block; color: #8f8a9c; font-size: .74rem; text-transform: uppercase; letter-spacing: .09em; }
+.case-stat strong { display: block; margin: 16px 0 8px; color: #fff; font-size: clamp(2rem, 3vw, 3.2rem); line-height: 1; letter-spacing: -.06em; }
+.case-stat small { color: #bdb8c8; font-size: .78rem; line-height: 1.5; }
+.case-stat a { text-decoration-color: rgba(185,255,102,.55); text-underline-offset: 3px; }
+.case-stat.accent { border-color: rgba(185,255,102,.24); background: linear-gradient(145deg, rgba(185,255,102,.15), rgba(185,255,102,.035)); }
+.case-nav {
+  position: sticky;
+  top: 100px;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 9px;
+  margin: 0 0 28px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  background: rgba(16,15,23,.86);
+  backdrop-filter: blur(18px);
+  scrollbar-width: none;
+}
+.case-nav::-webkit-scrollbar { display: none; }
+.case-nav button {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 16px;
+  background: transparent;
+  color: #9f9aaa;
+  font-size: .74rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s ease;
+}
+.case-nav button:hover { color: #fff; background: rgba(255,255,255,.06); }
+.case-nav button.is-active { color: #101018; background: var(--acid); }
+.case-view { display: none; }
+.case-view.is-active { display: block; animation: caseFade .28s ease; }
+@keyframes caseFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.case-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+.case-card {
+  grid-column: span 4;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 26px;
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+  padding: 26px;
+  box-shadow: 0 24px 54px rgba(0,0,0,.15);
+}
+.case-card.span-5 { grid-column: span 5; }
+.case-card.span-6 { grid-column: span 6; }
+.case-card.span-7 { grid-column: span 7; }
+.case-card.span-8 { grid-column: span 8; }
+.case-card.span-12 { grid-column: span 12; }
+.case-card.light { background: #f6f4ee; color: var(--ink); border-color: transparent; }
+.case-card.acid { background: var(--acid); color: #111118; border-color: transparent; }
+.case-card h3 { font-size: clamp(1.75rem, 3vw, 3rem); }
+.case-card h4 { margin-bottom: 12px; }
+.case-card p { color: #bbb7c6; }
+.case-card.light p, .case-card.acid p { color: #5f5b66; }
+.case-card .eyebrow { color: var(--acid); }
+.case-card.light .eyebrow, .case-card.acid .eyebrow { color: #54505c; }
+.case-card-heading { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; margin-bottom: 22px; }
+.case-card-heading p { margin: 8px 0 0; }
+.case-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.case-actions .button { min-height: 42px; padding-inline: 16px; font-size: .74rem; }
+.case-actions .button-ghost { color: #fff; border-color: rgba(255,255,255,.3); }
+.case-method {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 22px;
+}
+.case-method div { padding: 16px; border-radius: 16px; background: rgba(255,255,255,.055); }
+.case-method span { display: block; color: var(--acid); font: 500 .67rem/1.4 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.case-method strong { display: block; margin-top: 7px; color: #fff; font-size: .9rem; }
+.case-bullets { display: grid; gap: 12px; margin: 18px 0 0; padding: 0; list-style: none; }
+.case-bullets li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; color: #c5c1cd; font-size: .88rem; }
+.case-bullets li::before { content: "✓"; display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: rgba(185,255,102,.12); color: var(--acid); font-weight: 900; }
+.case-priority-list { display: grid; gap: 10px; }
+.case-priority {
+  display: grid;
+  grid-template-columns: 46px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background: rgba(255,255,255,.035);
+}
+.case-priority > span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: rgba(255,111,130,.12); color: #ff8f9f; font-weight: 900; }
+.case-priority strong { display: block; font-size: .9rem; }
+.case-priority small { display: block; margin-top: 3px; color: #8f8a9c; font-size: .73rem; }
+.case-priority b { color: #ff9cab; font: 500 .7rem/1 "DM Mono", monospace; }
+.case-heatmap { display: grid; grid-template-columns: 80px repeat(5, 1fr); gap: 5px; align-items: stretch; margin-top: 20px; }
+.case-heatmap span { display: grid; place-items: center; min-height: 42px; border-radius: 10px; color: rgba(255,255,255,.72); font-size: .67rem; font-weight: 800; }
+.case-heatmap .label { justify-items: start; color: #9f9aaa; background: transparent; }
+.hm-1 { background: rgba(113,196,255,.15); }
+.hm-2 { background: rgba(185,255,102,.15); }
+.hm-3 { background: rgba(255,202,101,.18); }
+.hm-4 { background: rgba(255,155,101,.24); }
+.hm-5 { background: rgba(255,111,130,.31); }
+.case-profile-list { display: grid; gap: 14px; margin-top: 20px; }
+.case-profile-row { display: grid; grid-template-columns: 88px 1fr 50px; gap: 14px; align-items: center; }
+.case-profile-row strong { font-size: .77rem; }
+.case-profile-track { height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; position: relative; }
+.case-profile-track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--purple), var(--acid)); }
+.case-profile-track::after { content: ""; position: absolute; left: 87.5%; top: -3px; width: 1px; height: 16px; background: rgba(255,255,255,.5); }
+.case-profile-row span { color: var(--acid); text-align: right; font: 500 .72rem/1 "DM Mono", monospace; }
+.case-source-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.case-source {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 13px;
+  align-items: start;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 18px;
+  background: rgba(255,255,255,.035);
+  text-decoration: none;
+  transition: .2s ease;
+}
+.case-source:hover { transform: translateY(-2px); border-color: rgba(185,255,102,.35); background: rgba(255,255,255,.055); }
+.case-source > span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(155,135,255,.15); color: #b9acff; font: 500 .68rem/1 "DM Mono", monospace; }
+.case-source strong { display: block; font-size: .82rem; }
+.case-source small { display: block; margin-top: 5px; color: #8f8a9c; font-size: .72rem; line-height: 1.45; }
+.case-source b { color: var(--acid); font-size: .8rem; }
+.case-scope-map { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 20px; }
+.scope-node { min-height: 150px; padding: 18px; border: 1px solid rgba(255,255,255,.09); border-radius: 20px; background: rgba(255,255,255,.035); }
+.scope-node span { color: var(--acid); font: 500 .65rem/1.4 "DM Mono", monospace; letter-spacing: .08em; }
+.scope-node strong { display: block; margin: 11px 0 8px; font-size: .9rem; }
+.scope-node small { color: #9994a5; font-size: .72rem; line-height: 1.5; }
+.data-chip-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.data-chip { padding: 8px 11px; border-radius: 999px; background: rgba(113,196,255,.10); border: 1px solid rgba(113,196,255,.18); color: #a8dafd; font-size: .68rem; font-weight: 800; }
+.risk-toolbar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.risk-filter-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.risk-toolbar label { display: grid; gap: 6px; color: #8f8a9c; font-size: .68rem; }
+.risk-toolbar select, .risk-toolbar input {
+  min-height: 42px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 13px;
+  background: #191822;
+  color: #fff;
+  padding: 0 12px;
+}
+.case-table-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,.09); border-radius: 20px; }
+.case-table { width: 100%; min-width: 1050px; border-collapse: collapse; }
+.case-table th { padding: 14px 16px; text-align: left; color: #8f8a9c; background: rgba(255,255,255,.04); font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; }
+.case-table td { padding: 15px 16px; border-top: 1px solid rgba(255,255,255,.075); vertical-align: top; color: #c5c1cd; font-size: .76rem; }
+.case-table tbody tr { cursor: pointer; transition: background .18s ease; }
+.case-table tbody tr:hover, .case-table tbody tr.is-selected { background: rgba(185,255,102,.055); }
+.case-table td strong { display: block; color: #fff; font-size: .8rem; }
+.case-table td small { display: block; margin-top: 4px; color: #8f8a9c; }
+.risk-score { display: inline-grid; place-items: center; min-width: 36px; height: 28px; border-radius: 9px; font-weight: 900; }
+.risk-critical { background: rgba(255,111,130,.18); color: #ff94a3; }
+.risk-high { background: rgba(255,155,101,.18); color: #ffb08b; }
+.risk-medium { background: rgba(255,202,101,.17); color: #ffd486; }
+.risk-low { background: rgba(185,255,102,.14); color: var(--acid); }
+.risk-detail { margin-top: 18px; padding: 24px; border: 1px solid rgba(185,255,102,.22); border-radius: 22px; background: rgba(185,255,102,.055); }
+.risk-detail-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; }
+.risk-detail h4 { font-size: 1.4rem; }
+.risk-detail p { color: #bbb7c6; }
+.risk-detail dl { display: grid; grid-template-columns: 140px 1fr; gap: 10px 14px; margin: 0; }
+.risk-detail dt { color: #8f8a9c; font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; }
+.risk-detail dd { margin: 0; color: #fff; font-size: .77rem; }
+.control-domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.control-domain { border: 1px solid rgba(255,255,255,.09); border-radius: 20px; padding: 21px; background: rgba(255,255,255,.035); }
+.control-domain > span { display: inline-flex; padding: 6px 9px; border-radius: 999px; background: rgba(155,135,255,.13); color: #bcaeff; font: 500 .63rem/1 "DM Mono", monospace; }
+.control-domain h4 { margin: 15px 0 9px; font-size: 1.15rem; }
+.control-domain p { margin: 0 0 14px; font-size: .78rem; line-height: 1.6; }
+.control-domain ul { margin: 0; padding-left: 18px; color: #aaa5b5; font-size: .73rem; line-height: 1.65; }
+.control-domain li + li { margin-top: 6px; }
+.observed-control { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,.08); }
+.observed-control:first-child { border-top: 0; }
+.observed-control > span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: rgba(185,255,102,.12); color: var(--acid); font-weight: 900; }
+.observed-control strong { display: block; font-size: .8rem; }
+.observed-control small { display: block; margin-top: 4px; color: #8f8a9c; font-size: .71rem; }
+.observed-control b { color: #b9b4c4; font: 500 .65rem/1 "DM Mono", monospace; }
+.evidence-progress { display: flex; align-items: center; gap: 16px; }
+.evidence-progress-ring { --progress: 0deg; display: grid; place-items: center; width: 94px; height: 94px; border-radius: 50%; background: conic-gradient(var(--acid) var(--progress), rgba(255,255,255,.08) 0); position: relative; }
+.evidence-progress-ring::after { content: ""; position: absolute; width: 72px; height: 72px; border-radius: 50%; background: #171620; }
+.evidence-progress-ring strong { position: relative; z-index: 1; font-size: 1.1rem; }
+.evidence-progress p { margin: 0; font-size: .78rem; }
+.evidence-checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 20px; }
+.evidence-item { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(255,255,255,.025); cursor: pointer; }
+.evidence-item input { margin-top: 3px; accent-color: var(--acid); }
+.evidence-item strong { display: block; font-size: .74rem; }
+.evidence-item small { display: block; margin-top: 3px; color: #8f8a9c; font-size: .66rem; }
+.test-grid { display: grid; gap: 12px; }
+.test-card { border: 1px solid rgba(255,255,255,.09); border-radius: 20px; padding: 20px; background: rgba(255,255,255,.03); }
+.test-card-head { display: flex; justify-content: space-between; gap: 16px; }
+.test-card-head span { color: var(--acid); font: 500 .66rem/1 "DM Mono", monospace; }
+.test-card h4 { margin: 11px 0 8px; font-size: 1.08rem; }
+.test-card p { margin: 0 0 14px; font-size: .76rem; }
+.test-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.test-meta div { padding: 12px; border-radius: 13px; background: rgba(255,255,255,.045); }
+.test-meta span { display: block; color: #8f8a9c; font-size: .61rem; text-transform: uppercase; letter-spacing: .08em; }
+.test-meta strong { display: block; margin-top: 5px; font-size: .72rem; line-height: 1.45; }
+.roadmap-lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.roadmap-lane { border: 1px solid rgba(255,255,255,.09); border-radius: 22px; padding: 20px; background: rgba(255,255,255,.03); }
+.roadmap-lane-head { padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.roadmap-lane-head span { color: var(--acid); font: 500 .66rem/1 "DM Mono", monospace; }
+.roadmap-lane-head h4 { margin-top: 8px; }
+.roadmap-task { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+.roadmap-task:last-child { border-bottom: 0; }
+.roadmap-task strong { display: block; font-size: .78rem; }
+.roadmap-task p { margin: 5px 0 9px; color: #8f8a9c; font-size: .68rem; line-height: 1.5; }
+.roadmap-task span { display: inline-flex; margin-right: 6px; padding: 5px 8px; border-radius: 999px; background: rgba(155,135,255,.12); color: #bcaeff; font-size: .6rem; font-weight: 800; }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi { padding: 18px; border: 1px solid rgba(255,255,255,.09); border-radius: 18px; background: rgba(255,255,255,.035); }
+.kpi span { color: #8f8a9c; font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; }
+.kpi strong { display: block; margin: 10px 0 5px; color: #fff; font-size: 1.35rem; }
+.kpi small { color: #aaa5b5; font-size: .68rem; }
+.tabletop-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.tabletop-step { position: relative; min-height: 210px; padding: 20px; border: 1px solid rgba(255,255,255,.09); border-radius: 20px; background: rgba(255,255,255,.035); }
+.tabletop-step span { color: var(--acid); font: 500 .66rem/1 "DM Mono", monospace; }
+.tabletop-step h4 { margin: 15px 0 9px; font-size: 1.1rem; }
+.tabletop-step p { margin: 0; font-size: .73rem; line-height: 1.6; }
+.tabletop-step::after { content: "→"; position: absolute; right: -18px; top: 48%; color: rgba(255,255,255,.25); font-size: 1.4rem; }
+.tabletop-step:last-child::after { display: none; }
+.decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.decision-card { padding: 17px; border: 1px solid rgba(255,255,255,.08); border-radius: 16px; background: rgba(255,255,255,.025); }
+.decision-card strong { display: block; font-size: .8rem; }
+.decision-card p { margin: 7px 0 0; font-size: .7rem; }
+.case-footer-note { margin-top: 22px; color: #898493; font-size: .7rem; line-height: 1.6; }
+.case-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; margin-top: 22px; padding: 18px; border: 1px solid rgba(255,255,255,.09); border-radius: 20px; background: rgba(255,255,255,.035); }
+.case-toolbar p { margin: 0; color: #9d98a8; font-size: .75rem; }
+.case-toolbar .button-ghost { color: white; border-color: rgba(255,255,255,.25); }
+@media (max-width: 1050px) {
+  .case-hero { grid-template-columns: 1fr; align-items: start; }
+  .case-stat-grid { grid-template-columns: 1fr 1fr; }
+  .case-card, .case-card.span-5, .case-card.span-7 { grid-column: span 6; }
+  .case-card.span-8 { grid-column: span 12; }
+  .case-scope-map { grid-template-columns: repeat(3, 1fr); }
+  .control-domain-grid { grid-template-columns: 1fr 1fr; }
+  .tabletop-flow { grid-template-columns: 1fr 1fr; }
+  .tabletop-step:nth-child(2)::after { display: none; }
+}
+@media (max-width: 760px) {
+  .flagship-case { padding: 88px 0; }
+  .case-title { font-size: clamp(2.8rem, 14vw, 4.6rem); }
+  .case-stat-grid, .case-source-grid, .case-method, .control-domain-grid, .roadmap-lanes, .kpi-grid, .tabletop-flow, .decision-grid, .evidence-checklist { grid-template-columns: 1fr; }
+  .case-card, .case-card.span-5, .case-card.span-6, .case-card.span-7, .case-card.span-8, .case-card.span-12 { grid-column: span 12; }
+  .case-scope-map { grid-template-columns: 1fr 1fr; }
+  .case-nav { top: 84px; border-radius: 18px; }
+  .case-profile-row { grid-template-columns: 72px 1fr 42px; }
+  .risk-detail-grid { grid-template-columns: 1fr; }
+  .risk-detail dl { grid-template-columns: 1fr; }
+  .tabletop-step::after { display: none; }
+}
+@media (max-width: 500px) {
+  .case-stat-grid, .case-scope-map { grid-template-columns: 1fr; }
+  .case-card { padding: 20px; }
+  .case-card-heading { display: block; }
+  .case-actions { margin-top: 16px; }
+}
+@media print {
+  .site-header, .case-nav, .case-actions, .case-toolbar, .ticker, #projects, #crosswalk, #method, .contact-cta, #sources { display: none !important; }
+  .flagship-case { background: white !important; color: #111 !important; padding: 20px 0; }
+  .case-view { display: block !important; page-break-inside: avoid; margin-bottom: 30px; }
+  .case-card, .case-stat, .case-disclaimer, .case-source, .control-domain, .test-card, .roadmap-lane, .tabletop-step { color: #111 !important; background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+  .case-card p, .case-card small, .case-source small, .scope-node small, .roadmap-task p { color: #555 !important; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="shell nav-wrap">
+<a aria-label="Pranav Gumma home" class="brand" href="#top">
+<span aria-hidden="true" class="brand-mark">PG</span>
+<span>
+<strong>Pranav Gumma</strong>
+<small>Cyber Risk Consulting Lab</small>
+</span>
+</a>
+<button aria-controls="primary-nav" aria-expanded="false" class="nav-toggle" type="button">Menu</button>
+<nav aria-label="Primary navigation" class="primary-nav" id="primary-nav">
+<a href="#activision-case">Activision case</a>
+<a href="#projects">Lab projects</a>
+<a href="#crosswalk">Frameworks</a>
+<a href="#method">Method</a>
+<a href="#sources">Sources</a>
+<a class="button button-small" href="mailto:pranavgumma05@gmail.com">Contact</a>
+</nav>
+</div>
+</header>
+<main id="main">
+<section class="hero section-pad" id="top">
+<div class="hero-grid shell">
+<div class="hero-copy">
+<div class="hero-kicker"><span class="status-dot"></span> Available for 2026 cybersecurity opportunities</div>
+<p class="eyebrow">Cybersecurity • IT Risk • Cloud • Compliance</p>
+<h1>Technical risk, translated into <span class="headline-accent">decisions.</span></h1>
+<p class="hero-lede">A consulting portfolio built with real public data, led by a full Activision cyber risk and controls assessment. Explore the evidence, risk register, control design, audit testing, and executive roadmap.</p>
+<div class="hero-actions">
+<a class="button" href="#activision-case">View Activision case <span aria-hidden="true">↗</span></a>
+<a class="button button-ghost" href="mailto:pranavgumma05@gmail.com">Start a conversation</a>
+</div>
+<div aria-label="Portfolio highlights" class="hero-proof">
+<div><strong>Live</strong><span>CISA KEV intelligence</span></div>
+<div><strong>5</strong><span>Consulting case studies</span></div>
+<div><strong>7</strong><span>Frameworks &amp; sources</span></div>
+</div>
+</div>
+<aside aria-label="Security program command center" class="hero-panel">
+<div aria-hidden="true" class="panel-glow"></div>
+<div class="panel-topline">
+<span><i></i><i></i><i></i></span>
+<span>risk-brief.pg</span>
+<span class="panel-live"><b></b> LIVE</span>
+</div>
+<div class="panel-dashboard-head">
+<div><small>SECURITY PROGRAM PULSE</small><h2>Decision center</h2></div>
+<span class="panel-period">Q2 · 2026</span>
+</div>
+<div class="panel-score-grid">
+<div class="panel-score-card panel-score-primary">
+<span>Control maturity</span>
+<strong>2.7<small>/4.0</small></strong>
+<div class="mini-progress"><i></i></div>
+<small>Target state: 3.2</small>
+</div>
+<div class="panel-score-card">
+<span>Priority queue</span>
+<strong>24</strong>
+<small><b class="trend-up">↑ 8</b> require action</small>
+</div>
+</div>
+<div aria-hidden="true" class="panel-chart">
+<div class="chart-label"><span>Risk reduction trend</span><b>−31%</b></div>
+<svg aria-label="Illustrative declining risk trend" role="img" viewbox="0 0 520 135">
+<defs><lineargradient id="chartFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#b8ff5c" stop-opacity=".35"></stop><stop offset="1" stop-color="#b8ff5c" stop-opacity="0"></stop></lineargradient></defs>
+<path class="chart-area" d="M0,30 C55,22 80,75 135,60 C195,43 210,86 272,72 C340,57 362,104 420,82 C465,66 485,58 520,48 L520,135 L0,135 Z"></path>
+<path class="chart-line" d="M0,30 C55,22 80,75 135,60 C195,43 210,86 272,72 C340,57 362,104 420,82 C465,66 485,58 520,48"></path>
+<circle cx="520" cy="48" r="5"></circle>
+</svg>
+</div>
+<div class="panel-events">
+<div><span class="event-icon event-purple">01</span><p><strong>Identity review</strong><small>Least-privilege findings mapped</small></p><b>Complete</b></div>
+<div><span class="event-icon event-orange">02</span><p><strong>KEV exposure</strong><small>Patch queue reprioritized</small></p><b>In review</b></div>
+</div>
+<div class="floating-note floating-note-a"><span>✓</span><p><strong>Evidence ready</strong><small>12 control artifacts</small></p></div>
+<div class="floating-note floating-note-b"><span>!</span><p><strong>Board decision</strong><small>3 exceptions due</small></p></div>
+</aside>
+</div>
+</section>
+<section aria-label="Frameworks covered" class="ticker">
+<div class="ticker-track">
+<div class="ticker-group"><span>NIST CSF 2.0</span><span>NIST SP 800-53</span><span>CIS Controls v8.1</span><span>PCI DSS v4.0.1</span><span>SOC 2</span><span>ISO/IEC 27001</span><span>CISA KEV</span></div>
+<div aria-hidden="true" class="ticker-group"><span>NIST CSF 2.0</span><span>NIST SP 800-53</span><span>CIS Controls v8.1</span><span>PCI DSS v4.0.1</span><span>SOC 2</span><span>ISO/IEC 27001</span><span>CISA KEV</span></div>
+</div>
+</section>
+<section class="flagship-case" id="activision-case">
+  <div class="shell">
+    <div class="case-hero">
+      <div>
+        <div class="case-kicker"><i></i> Flagship public-data engagement</div>
+        <p class="eyebrow">Activision • Cyber risk and controls assessment</p>
+        <h2 class="case-title">A consulting-grade review built around a <em>real company.</em></h2>
+        <p class="case-lede">This independent case study translates public Activision and Microsoft evidence into a risk register, NIST CSF profile, identity and software-delivery control design, audit test plan, executive roadmap, and incident tabletop. It is designed to show how I would structure a PwC-style cyber risk engagement from scoping through remediation.</p>
+      </div>
+      <aside class="case-disclaimer">
+        <strong>Important scope boundary</strong>
+        <p>This is not an Activision-commissioned assessment and does not claim access to internal systems, configurations, employees, or confidential information. No intrusive testing or scanning was performed. “Observed” means supported by public evidence; “validate” means the conclusion requires client evidence before it could be treated as an audit finding.</p>
+        <div class="case-date"><span>Evidence cut-off</span><b>24 JUN 2026</b></div>
+      </aside>
+    </div>
+
+    <div class="case-stat-grid" aria-label="Activision public evidence highlights">
+      <article class="case-stat accent"><span>Acquisition value</span><strong>$75.4B</strong><small>Microsoft completed the Activision Blizzard acquisition on October 13, 2023.</small></article>
+      <article class="case-stat"><span>Historical user scale</span><strong>389M</strong><small>Average monthly active users reported for Q4 2022 across Activision, Blizzard, and King.</small></article>
+      <article class="case-stat"><span>Current business signal</span><strong>+16%</strong><small>FY2025 Xbox content and services growth, driven in part by Activision Blizzard and Game Pass.</small></article>
+      <article class="case-stat"><span>Assessment output</span><strong>12</strong><small>Prioritized risks with owners, control mappings, test steps, and measurable treatment plans.</small></article>
+    </div>
+
+    <nav class="case-nav" aria-label="Activision case study sections">
+      <button class="is-active" data-case-target="case-executive" type="button">Executive view</button>
+      <button data-case-target="case-evidence" type="button">Evidence &amp; scope</button>
+      <button data-case-target="case-risks" type="button">Risk register</button>
+      <button data-case-target="case-controls" type="button">Control design</button>
+      <button data-case-target="case-audit" type="button">Audit testing</button>
+      <button data-case-target="case-roadmap" type="button">90-day roadmap</button>
+      <button data-case-target="case-tabletop" type="button">Incident tabletop</button>
+    </nav>
+
+    <div class="case-view is-active" id="case-executive">
+      <div class="case-grid">
+        <article class="case-card span-7">
+          <div class="case-card-heading">
+            <div><p class="eyebrow">Executive assessment</p><h3>Security priorities tied to player trust and service continuity</h3></div>
+          </div>
+          <p>Activision’s public materials show a global, identity-heavy, always-online business that handles account information, linked platform identities, gameplay and communications data, purchase history, device information, and virtual assets. The most important risk theme is not a single technical flaw; it is the concentration of business value in consumer identity, game integrity, software delivery, and continuous availability.</p>
+          <ul class="case-bullets">
+            <li><span><strong>Protect identity as a revenue and trust control.</strong><br/>Player account takeover can create fraud, support cost, reputational damage, enforcement errors, and loss of virtual assets.</span></li>
+            <li><span><strong>Treat the build pipeline and anti-cheat intellectual property as crown jewels.</strong><br/>Compromise could affect code integrity, game fairness, release schedules, and brand confidence.</span></li>
+            <li><span><strong>Measure resilience in business terms.</strong><br/>Live-service disruption should be governed through service-level objectives, game-launch readiness, tested recovery, and executive escalation thresholds.</span></li>
+            <li><span><strong>Unify privacy, security, and platform governance.</strong><br/>The data lifecycle spans linked accounts, advertising, communications, customer support, mobile, console, PC, and third parties.</span></li>
+          </ul>
+          <div class="case-method">
+            <div><span>Method</span><strong>Public evidence → risk hypothesis → control objective → evidence request → test procedure → remediation metric</strong></div>
+            <div><span>Decision standard</span><strong>No internal-control conclusion is treated as proven without client-provided population, configuration, and operating evidence.</strong></div>
+          </div>
+        </article>
+
+        <article class="case-card span-5">
+          <p class="eyebrow">Top treatment priorities</p>
+          <div class="case-priority-list">
+            <div class="case-priority"><span>01</span><p><strong>Phishing-resistant privileged access</strong><small>FIDO2/passkeys, JIT elevation, session recording, emergency access governance</small></p><b>0–30D</b></div>
+            <div class="case-priority"><span>02</span><p><strong>Account recovery fraud controls</strong><small>Risk-based proofing, high-risk change delays, linked-account alerts, recovery analytics</small></p><b>0–30D</b></div>
+            <div class="case-priority"><span>03</span><p><strong>Software artifact trust</strong><small>Protected branches, isolated signing, provenance, SBOM, deployment attestation</small></p><b>31–60D</b></div>
+            <div class="case-priority"><span>04</span><p><strong>Live-service resilience</strong><small>Tiered SLOs, dependency maps, DDoS playbooks, restore testing, launch-day command</small></p><b>31–90D</b></div>
+            <div class="case-priority"><span>05</span><p><strong>Privacy control evidence</strong><small>Data inventory, retention enforcement, DSAR metrics, minors controls, vendor lineage</small></p><b>31–90D</b></div>
+          </div>
+        </article>
+
+        <article class="case-card span-6">
+          <p class="eyebrow">Public-evidence profile</p>
+          <h4>NIST CSF 2.0 evidence strength</h4>
+          <p>This chart scores the strength of publicly available evidence, not Activision’s actual internal maturity. A 4.0 would require measured operating evidence that cannot be established from public sources.</p>
+          <div class="case-profile-list" id="activision-profile"></div>
+          <p class="case-footer-note">Target marker: 3.5/4.0. Scale: 0 no evidence, 1 policy statement, 2 visible control, 3 repeatable operating evidence, 4 measured and independently tested.</p>
+        </article>
+
+        <article class="case-card span-6">
+          <p class="eyebrow">Inherent risk concentration</p>
+          <h4>Likelihood × impact heatmap</h4>
+          <div class="case-heatmap" aria-label="Risk heatmap">
+            <span class="label"></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5 impact</span>
+            <span class="label">5 likely</span><span class="hm-2"></span><span class="hm-3"></span><span class="hm-4">R10</span><span class="hm-5">R01</span><span class="hm-5"></span>
+            <span class="label">4</span><span class="hm-2"></span><span class="hm-3"></span><span class="hm-4">R08</span><span class="hm-5">R06 R07</span><span class="hm-5">R02 R03 R04</span>
+            <span class="label">3</span><span class="hm-1"></span><span class="hm-2"></span><span class="hm-3"></span><span class="hm-4">R09</span><span class="hm-4">R05 R11 R12</span>
+            <span class="label">2</span><span class="hm-1"></span><span class="hm-1"></span><span class="hm-2"></span><span class="hm-3"></span><span class="hm-3"></span>
+            <span class="label">1</span><span class="hm-1"></span><span class="hm-1"></span><span class="hm-1"></span><span class="hm-2"></span><span class="hm-2"></span>
+          </div>
+          <p class="case-footer-note">Risk placement is a consulting hypothesis based on business model and public disclosures. Client workshops, architecture, incident history, and control evidence would recalibrate likelihood and residual exposure.</p>
+        </article>
+
+        <article class="case-card span-12 acid">
+          <div class="case-card-heading">
+            <div><p class="eyebrow">Board-level conclusion</p><h3>Security should be managed as a product-quality, revenue-protection, and trust program—not only an IT control function.</h3></div>
+            <div class="case-actions"><button class="button" id="copy-activision-summary" type="button">Copy executive summary</button><button class="button button-ghost" id="print-activision-case" type="button">Print case study</button></div>
+          </div>
+          <p>The recommended operating model joins player identity, anti-fraud, anti-cheat, privacy, software delivery, infrastructure resilience, and third-party governance under a common risk taxonomy. Leadership should receive a small set of measurable indicators: privileged phishing-resistant MFA coverage, account-recovery fraud rate, signed-production-artifact coverage, KEV remediation performance, high-severity service availability, tested recovery success, and overdue privacy-retention exceptions.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="case-view" id="case-evidence">
+      <div class="case-grid">
+        <article class="case-card span-12">
+          <div class="case-card-heading"><div><p class="eyebrow">Engagement scope</p><h3>Business and data-flow model</h3><p>Scope is derived from Activision’s public privacy, support, security, and financial disclosures.</p></div></div>
+          <div class="case-scope-map">
+            <div class="scope-node"><span>01 / USERS</span><strong>Players and guardians</strong><small>Account creation, linked platform identities, age and country, support interactions, privacy requests.</small></div>
+            <div class="scope-node"><span>02 / IDENTITY</span><strong>Activision accounts</strong><small>Email verification, passwords, authenticator 2FA, SMS verification, recovery, linked Xbox/PlayStation/Steam/Battle.net identities.</small></div>
+            <div class="scope-node"><span>03 / SERVICES</span><strong>Games and live platforms</strong><small>Console, PC, mobile, online gameplay, matchmaking, leaderboards, voice/text communications, game integrity and enforcement.</small></div>
+            <div class="scope-node"><span>04 / VALUE</span><strong>Commerce and virtual assets</strong><small>Purchase histories, subscriptions, in-game items, virtual currency, entitlement and fraud risk.</small></div>
+            <div class="scope-node"><span>05 / ECOSYSTEM</span><strong>Platforms and vendors</strong><small>Cloud and infrastructure providers, console platforms, payment, advertising, analytics, customer support, and development partners.</small></div>
+          </div>
+          <div class="data-chip-list" aria-label="Publicly disclosed data categories">
+            <span class="data-chip">Name &amp; username</span><span class="data-chip">Email &amp; phone</span><span class="data-chip">Date of birth &amp; country</span><span class="data-chip">IP &amp; device data</span><span class="data-chip">Linked platform IDs</span><span class="data-chip">Gameplay &amp; usage</span><span class="data-chip">Text &amp; voice communications</span><span class="data-chip">Purchase history</span><span class="data-chip">Advertising identifiers</span><span class="data-chip">Support records</span><span class="data-chip">Virtual assets</span>
+          </div>
+        </article>
+
+        <article class="case-card span-12">
+          <div class="case-card-heading"><div><p class="eyebrow">Evidence register</p><h3>Official and primary sources used</h3><p>Each conclusion is separated into fact, inference, and validation need.</p></div></div>
+          <div class="case-source-grid" id="activision-sources"></div>
+        </article>
+
+        <article class="case-card span-6">
+          <p class="eyebrow">Observed public controls</p>
+          <h4>Evidence that can be stated without guessing</h4>
+          <div id="observed-controls"></div>
+        </article>
+        <article class="case-card span-6">
+          <p class="eyebrow">Client validation boundaries</p>
+          <h4>What the public record cannot establish</h4>
+          <ul class="case-bullets">
+            <li><span>Whether privileged workforce identities use phishing-resistant MFA, conditional access, PAM, and just-in-time elevation.</span></li>
+            <li><span>Whether repositories, build systems, signing keys, and production deployment paths are isolated and independently approved.</span></li>
+            <li><span>Actual incident metrics, recovery times, patch SLA performance, security exceptions, or control failures.</span></li>
+            <li><span>The completeness of asset, data, vendor, service, and identity inventories.</span></li>
+            <li><span>Internal mappings to PCI DSS, SOC 2, ISO 27001, Microsoft security standards, or contractual obligations.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="case-view" id="case-risks">
+      <article class="case-card span-12">
+        <div class="case-card-heading">
+          <div><p class="eyebrow">Risk register</p><h3>Prioritized, owned, and linked to business impact</h3><p>Use the filters, select a row for full treatment detail, or download the register as a CSV.</p></div>
+          <div class="case-actions"><button class="button button-ghost" id="download-activision-risks" type="button">Download CSV</button></div>
+        </div>
+        <div class="risk-toolbar">
+          <div class="risk-filter-group">
+            <label>Domain<select id="activision-risk-domain"><option value="all">All domains</option></select></label>
+            <label>Priority<select id="activision-risk-priority"><option value="all">All priorities</option><option value="Critical">Critical</option><option value="High">High</option><option value="Medium">Medium</option></select></label>
+            <label>Search<input id="activision-risk-search" type="search" placeholder="identity, privacy, outage…"/></label>
+          </div>
+          <small id="activision-risk-count">12 risks</small>
+        </div>
+        <div class="case-table-wrap">
+          <table class="case-table">
+            <thead><tr><th>ID</th><th>Risk statement</th><th>Domain</th><th>Owner</th><th>Inherent</th><th>Public-control hypothesis</th><th>Priority</th></tr></thead>
+            <tbody id="activision-risk-body"></tbody>
+          </table>
+        </div>
+        <div class="risk-detail" id="activision-risk-detail" aria-live="polite"></div>
+      </article>
+    </div>
+
+    <div class="case-view" id="case-controls">
+      <div class="case-grid">
+        <article class="case-card span-12">
+          <div class="case-card-heading"><div><p class="eyebrow">Target-state design</p><h3>Controls that connect technology to business outcomes</h3><p>These are proposed control objectives and operating metrics—not claims about Activision’s current internal environment.</p></div></div>
+          <div class="control-domain-grid" id="activision-control-domains"></div>
+        </article>
+        <article class="case-card span-6">
+          <p class="eyebrow">Control crosswalk</p>
+          <h4>Framework alignment</h4>
+          <div class="case-table-wrap">
+            <table class="case-table" style="min-width:760px">
+              <thead><tr><th>Control objective</th><th>NIST CSF 2.0</th><th>NIST 800-53</th><th>CIS v8.1</th><th>Evidence</th></tr></thead>
+              <tbody id="activision-crosswalk"></tbody>
+            </table>
+          </div>
+        </article>
+        <article class="case-card span-6">
+          <p class="eyebrow">Management dashboard</p>
+          <h4>Recommended key risk indicators</h4>
+          <div class="kpi-grid" style="grid-template-columns:1fr 1fr">
+            <div class="kpi"><span>Privileged MFA</span><strong>100%</strong><small>Phishing-resistant method for production and code-signing access</small></div>
+            <div class="kpi"><span>KEV validation</span><strong>&lt;24h</strong><small>Internet-facing and identity infrastructure exposure decision</small></div>
+            <div class="kpi"><span>Signed artifacts</span><strong>100%</strong><small>Production deployments with verified provenance and approval</small></div>
+            <div class="kpi"><span>Recovery tests</span><strong>≥95%</strong><small>Critical services meeting documented restore objectives</small></div>
+            <div class="kpi"><span>Recovery fraud</span><strong>↓ MoM</strong><small>Confirmed takeover following support or account-recovery events</small></div>
+            <div class="kpi"><span>Privacy exceptions</span><strong>0 overdue</strong><small>Retention and rights-request exceptions past approved due date</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="case-view" id="case-audit">
+      <div class="case-grid">
+        <article class="case-card span-7">
+          <div class="case-card-heading"><div><p class="eyebrow">Audit-ready evidence</p><h3>Request list and completion tracker</h3><p>A real engagement cannot conclude on design or operating effectiveness without complete, reliable evidence.</p></div></div>
+          <div class="evidence-progress">
+            <div class="evidence-progress-ring" id="evidence-progress-ring"><strong id="evidence-progress-value">0%</strong></div>
+            <p><strong id="evidence-progress-count">0 of 20 artifacts</strong><br/>Check items to simulate evidence received during fieldwork. Progress is stored only for the current browser session.</p>
+          </div>
+          <div class="evidence-checklist" id="activision-evidence-checklist"></div>
+        </article>
+        <article class="case-card span-5">
+          <p class="eyebrow">Evidence quality rules</p>
+          <h4>How I would avoid weak audit conclusions</h4>
+          <ul class="case-bullets">
+            <li><span><strong>Completeness:</strong> reconcile system-generated populations to authoritative inventories or HR records before sampling.</span></li>
+            <li><span><strong>Accuracy:</strong> inspect report logic, source systems, filters, timestamps, and access controls.</span></li>
+            <li><span><strong>Operating period:</strong> obtain evidence across the review period, not only a point-in-time screenshot.</span></li>
+            <li><span><strong>Exception handling:</strong> trace exceptions to risk acceptance, accountable owner, compensating control, and expiry date.</span></li>
+            <li><span><strong>Reperformance:</strong> independently reproduce critical calculations or configuration checks when feasible.</span></li>
+          </ul>
+        </article>
+        <article class="case-card span-12">
+          <div class="case-card-heading"><div><p class="eyebrow">Sample test program</p><h3>Design and operating-effectiveness procedures</h3></div></div>
+          <div class="test-grid" id="activision-test-program"></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="case-view" id="case-roadmap">
+      <div class="case-grid">
+        <article class="case-card span-12">
+          <div class="case-card-heading"><div><p class="eyebrow">Remediation plan</p><h3>90 days from validation to measurable control improvement</h3><p>Sequenced to reduce identity and production risk first, while establishing evidence for longer-term governance.</p></div><div class="case-actions"><button class="button button-ghost" id="download-activision-roadmap" type="button">Download roadmap CSV</button></div></div>
+          <div class="roadmap-lanes" id="activision-roadmap-lanes"></div>
+        </article>
+        <article class="case-card span-12">
+          <p class="eyebrow">Success measures</p>
+          <div class="kpi-grid">
+            <div class="kpi"><span>Identity</span><strong>100%</strong><small>Privileged and break-glass accounts inventoried, owned, and protected</small></div>
+            <div class="kpi"><span>Recovery</span><strong>&lt;1%</strong><small>High-risk recovery events missing enhanced verification</small></div>
+            <div class="kpi"><span>Delivery</span><strong>100%</strong><small>Production artifacts signed and provenance-verified</small></div>
+            <div class="kpi"><span>Exposure</span><strong>≥95%</strong><small>KEV items remediated within approved risk-tier SLA</small></div>
+            <div class="kpi"><span>Resilience</span><strong>2 tests</strong><small>Critical-service recovery and DDoS/game-launch tabletop completed</small></div>
+            <div class="kpi"><span>Privacy</span><strong>100%</strong><small>Critical data stores mapped to owner, purpose, retention, and rights workflow</small></div>
+            <div class="kpi"><span>Vendors</span><strong>100%</strong><small>Critical vendors tiered with security obligations and current assurance</small></div>
+            <div class="kpi"><span>Governance</span><strong>Monthly</strong><small>Executive review of risk acceptance, KRIs, incidents, and overdue actions</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="case-view" id="case-tabletop">
+      <div class="case-grid">
+        <article class="case-card span-12">
+          <div class="case-card-heading"><div><p class="eyebrow">Tabletop scenario</p><h3>Compromised build engineer and malicious release path</h3><p>A cross-functional exercise covering identity, code integrity, player safety, privacy, legal, communications, and service recovery.</p></div></div>
+          <div class="tabletop-flow">
+            <div class="tabletop-step"><span>INJECT 01</span><h4>Identity compromise</h4><p>A build engineer approves a realistic phishing prompt. The attacker obtains a session token and accesses source repositories from a new device.</p></div>
+            <div class="tabletop-step"><span>INJECT 02</span><h4>Pipeline activity</h4><p>A protected branch alert shows a dependency change and attempted access to signing infrastructure shortly before a major content release.</p></div>
+            <div class="tabletop-step"><span>INJECT 03</span><h4>Player impact</h4><p>Telemetry identifies anomalous client behavior. Social media claims a malicious update is stealing credentials, but facts remain incomplete.</p></div>
+            <div class="tabletop-step"><span>INJECT 04</span><h4>Business decision</h4><p>Leadership must decide whether to halt deployment, revoke artifacts, force sessions to reauthenticate, notify platforms, and communicate publicly.</p></div>
+          </div>
+        </article>
+        <article class="case-card span-7">
+          <p class="eyebrow">Required decisions</p>
+          <div class="decision-grid">
+            <div class="decision-card"><strong>Containment authority</strong><p>Who can halt releases, revoke signing trust, disable identities, and isolate environments without waiting for a full executive meeting?</p></div>
+            <div class="decision-card"><strong>Evidence preservation</strong><p>How are identity, repository, CI/CD, signing, endpoint, cloud, and game telemetry preserved with defensible timestamps?</p></div>
+            <div class="decision-card"><strong>Player protection</strong><p>What threshold triggers token revocation, password reset, 2FA challenge, platform notification, or customer support surge staffing?</p></div>
+            <div class="decision-card"><strong>Disclosure analysis</strong><p>Who evaluates privacy, contractual, regulatory, insurer, platform, law-enforcement, and public-communication obligations?</p></div>
+            <div class="decision-card"><strong>Recovery acceptance</strong><p>What evidence proves the build environment, dependencies, signing process, and released artifacts are trustworthy before resuming?</p></div>
+            <div class="decision-card"><strong>Post-incident governance</strong><p>How are root causes, control failures, risk acceptance, accountability, and tracked remediation presented to leadership?</p></div>
+          </div>
+        </article>
+        <article class="case-card span-5">
+          <p class="eyebrow">Exercise scorecard</p>
+          <h4>Metrics captured during the tabletop</h4>
+          <div class="case-priority-list">
+            <div class="case-priority"><span>01</span><p><strong>Time to identity containment</strong><small>Detection to session and credential revocation</small></p><b>&lt;15m</b></div>
+            <div class="case-priority"><span>02</span><p><strong>Time to release decision</strong><small>Alert to documented go/no-go authority</small></p><b>&lt;30m</b></div>
+            <div class="case-priority"><span>03</span><p><strong>Artifact trust validation</strong><small>Provenance, hash, signature, dependency, and deployment review</small></p><b>&lt;2h</b></div>
+            <div class="case-priority"><span>04</span><p><strong>Executive situation report</strong><small>Known facts, uncertainty, business impact, actions, next decision</small></p><b>&lt;60m</b></div>
+            <div class="case-priority"><span>05</span><p><strong>Recovery evidence</strong><small>Clean pipeline and monitored production restoration</small></p><b>100%</b></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="case-toolbar">
+      <p><strong>Portfolio standard:</strong> facts are sourced, assumptions are labeled, and every recommendation includes an owner, evidence request, test method, and measurable outcome.</p>
+      <div class="case-actions"><a class="button button-ghost" href="#projects">Continue to interactive lab</a><a class="button" href="mailto:pranavgumma05@gmail.com">Discuss the work</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad shell" id="projects">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Interactive portfolio</p>
+<h2>Projects built to mirror real consulting work</h2>
+</div>
+<p>Each project produces an artifact you could discuss in an interview: a prioritized vulnerability view, maturity assessment, controls crosswalk, IAM finding set, or executive risk brief.</p>
+</div>
+<div aria-label="Portfolio projects" class="project-tabs" role="tablist">
+<button aria-controls="kev-project" aria-selected="true" class="project-tab is-active" data-target="kev-project" id="tab-kev" role="tab">01 Vulnerability intelligence</button>
+<button aria-controls="csf-project" aria-selected="false" class="project-tab" data-target="csf-project" id="tab-csf" role="tab">02 NIST maturity</button>
+<button aria-controls="iam-project" aria-selected="false" class="project-tab" data-target="iam-project" id="tab-iam" role="tab">03 IAM review</button>
+<button aria-controls="report-project" aria-selected="false" class="project-tab" data-target="report-project" id="tab-report" role="tab">04 Executive brief</button>
+</div>
+<section aria-labelledby="tab-kev" class="project-panel is-active" id="kev-project" role="tabpanel">
+<div class="project-intro">
+<div>
+<p class="project-number">Project 01</p>
+<h3>Known Exploited Vulnerability Prioritization Dashboard</h3>
+<p>Consumes CISA’s public Known Exploited Vulnerabilities catalog, applies a transparent prioritization model, and converts technical entries into a patching queue.</p>
+</div>
+<div class="project-meta">
+<span>Real public data</span><span>Vulnerability management</span><span>Business prioritization</span>
+</div>
+</div>
+<div aria-live="polite" class="data-banner" id="kev-status" role="status">
+<span class="status-dot"></span>
+<span>Loading the current CISA catalog…</span>
+</div>
+<div class="metric-grid" id="kev-metrics">
+<article class="metric-card"><span>Catalog entries</span><strong id="metric-total">—</strong><small id="metric-version">Waiting for data</small></article>
+<article class="metric-card"><span>Known ransomware use</span><strong id="metric-ransomware">—</strong><small>Explicitly marked “Known” by CISA</small></article>
+<article class="metric-card"><span>Added in last 30 days</span><strong id="metric-recent">—</strong><small>Based on CISA date-added field</small></article>
+<article class="metric-card"><span>Past due</span><strong id="metric-overdue">—</strong><small>Due date earlier than today</small></article>
+</div>
+<div class="dashboard-grid">
+<div class="dashboard-card span-2">
+<div class="card-heading">
+<div><p class="eyebrow">Prioritized queue</p><h4>Highest-action items</h4></div>
+<div class="filter-row">
+<label><span>Vendor</span><select id="vendor-filter"><option value="all">All vendors</option></select></label>
+<label><span>Ransomware</span><select id="ransomware-filter"><option value="all">All</option><option value="Known">Known use</option><option value="Unknown">Unknown</option></select></label>
+<label><span>Search</span><input id="kev-search" placeholder="CVE, product, vendor" type="search"/></label>
+</div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Priority</th><th>CVE / product</th><th>Added</th><th>Due</th><th>Ransomware</th><th>Action</th></tr></thead>
+<tbody id="kev-table-body"></tbody>
+</table>
+</div>
+<div class="pagination-row">
+<button class="button button-ghost button-small" id="kev-prev" type="button">Previous</button>
+<span id="kev-page-label">Page 1</span>
+<button class="button button-ghost button-small" id="kev-next" type="button">Next</button>
+</div>
+</div>
+<div class="dashboard-card">
+<div class="card-heading"><div><p class="eyebrow">Concentration</p><h4>Top vendors in catalog</h4></div></div>
+<div aria-label="Top vendors by CISA KEV count" class="bar-chart" id="vendor-bars"></div>
+</div>
+<div class="dashboard-card">
+<div class="card-heading"><div><p class="eyebrow">Method</p><h4>Priority score</h4></div></div>
+<div class="score-method">
+<div><strong>+50</strong><span>Known ransomware campaign use</span></div>
+<div><strong>+30</strong><span>Remediation due or overdue</span></div>
+<div><strong>+20</strong><span>Added within the last 14 days</span></div>
+<div><strong>+10</strong><span>Internet-facing or identity keywords</span></div>
+</div>
+<p class="fine-print">This is an analyst-created triage model, not a CISA score. Asset criticality and exposure would be added in a client environment.</p>
+</div>
+</div>
+</section>
+<section aria-labelledby="tab-csf" class="project-panel" hidden="" id="csf-project" role="tabpanel">
+<div class="project-intro">
+<div>
+<p class="project-number">Project 02</p>
+<h3>NIST CSF 2.0 Maturity Assessment</h3>
+<p>Scores a transparent demo environment across all six CSF 2.0 functions and produces a risk-focused improvement roadmap.</p>
+</div>
+<div class="project-meta"><span>Risk assessment</span><span>Controls maturity</span><span>Roadmap development</span></div>
+</div>
+<div class="assessment-layout">
+<div class="assessment-controls">
+<div class="assessment-note"><strong>Demo baseline:</strong> the starting scores represent a fictional mid-size cloud software company. Adjust every slider to model another environment.</div>
+<div id="csf-controls"></div>
+</div>
+<aside class="assessment-summary">
+<div class="score-ring" id="score-ring"><span id="overall-score">0.0</span><small>of 4.0</small></div>
+<h4 id="maturity-label">Initial</h4>
+<p id="maturity-summary">Move the controls to calculate the assessment.</p>
+<div class="function-scores" id="function-scores"></div>
+<button class="button" id="generate-roadmap" type="button">Generate roadmap</button>
+</aside>
+</div>
+<div class="dashboard-card roadmap-card" hidden="" id="roadmap-card">
+<div class="card-heading"><div><p class="eyebrow">Prioritized remediation</p><h4>90-day roadmap</h4></div><button class="button button-ghost button-small" id="copy-roadmap" type="button">Copy</button></div>
+<div id="roadmap-output"></div>
+</div>
+</section>
+<section aria-labelledby="tab-iam" class="project-panel" hidden="" id="iam-project" role="tabpanel">
+<div class="project-intro">
+<div>
+<p class="project-number">Project 03</p>
+<h3>AWS IAM Policy Risk Review</h3>
+<p>Parses IAM policy JSON and flags broad permissions, wildcard resources, privilege-escalation paths, missing conditions, and risky role-passing patterns.</p>
+</div>
+<div class="project-meta"><span>Cloud security</span><span>Identity and access</span><span>Least privilege</span></div>
+</div>
+<div class="iam-layout">
+<div class="dashboard-card">
+<div class="card-heading"><div><p class="eyebrow">Input</p><h4>Policy document</h4></div><button class="button button-ghost button-small" id="load-demo-policy" type="button">Load demo</button></div>
+<label class="sr-only" for="iam-policy">AWS IAM policy JSON</label>
+<textarea aria-describedby="iam-help" id="iam-policy" spellcheck="false">{
+  "Version": "2012-10-17",
+  "Statement": []
+}</textarea>
+<p class="fine-print" id="iam-help">Analysis runs locally in your browser. No policy content is uploaded.</p>
+<button class="button" id="analyze-policy" type="button">Analyze policy</button>
+</div>
+<div class="dashboard-card">
+<div class="card-heading"><div><p class="eyebrow">Findings</p><h4>Risk review</h4></div><span class="risk-badge" id="iam-risk-badge">Not analyzed</span></div>
+<div class="iam-score"><strong id="iam-score">—</strong><span>/ 100 risk score</span></div>
+<div class="finding-list" id="iam-findings"><p class="muted">Paste a policy or load the transparent demo policy, then run the review.</p></div>
+</div>
+</div>
+</section>
+<section aria-labelledby="tab-report" class="project-panel" hidden="" id="report-project" role="tabpanel">
+<div class="project-intro">
+<div>
+<p class="project-number">Project 04</p>
+<h3>Executive Cyber Risk Brief Generator</h3>
+<p>Turns live vulnerability intelligence and maturity-assessment results into a concise leadership brief with decisions, ownership, and next actions.</p>
+</div>
+<div class="project-meta"><span>Executive communication</span><span>Business impact</span><span>Action planning</span></div>
+</div>
+<div class="report-builder">
+<div class="dashboard-card report-form">
+<div class="card-heading"><div><p class="eyebrow">Brief settings</p><h4>Business context</h4></div></div>
+<label>Organization name<input id="report-org" value="Northstar Cloud Services"/></label>
+<label>Audience<select id="report-audience"><option>Executive leadership team</option><option>Audit committee</option><option>Technology leadership</option><option>Board of directors</option></select></label>
+<label>Primary concern<select id="report-focus"><option>Actively exploited vulnerabilities</option><option>Identity and access risk</option><option>Control maturity and compliance readiness</option><option>Cloud security exposure</option></select></label>
+<label>Business context<textarea id="report-context">The company operates a cloud-hosted customer platform and depends on continuous availability, customer trust, and rapid remediation of internet-facing risk.</textarea></label>
+<button class="button" id="build-report" type="button">Build executive brief</button>
+</div>
+<article aria-live="polite" class="executive-report" id="executive-report">
+<div class="report-placeholder"><span>PG</span><p>Your executive brief will appear here.</p></div>
+</article>
+</div>
+</section>
+</section>
+<section class="section-pad section-dark" id="crosswalk">
+<div class="shell">
+<div class="section-heading">
+<div><p class="eyebrow">Framework fluency</p><h2>Security control crosswalk</h2></div>
+<p>An analyst-created comparison showing how common security themes appear across leading frameworks. It is designed for scoping conversations, not as a substitute for licensed standards or formal legal advice.</p>
+</div>
+<div class="crosswalk-toolbar">
+<label><span>Filter by theme</span><select id="crosswalk-filter"><option value="all">All themes</option></select></label>
+<button class="button button-ghost button-small" id="export-crosswalk" type="button">Export CSV</button>
+</div>
+<div class="table-wrap crosswalk-table-wrap">
+<table class="crosswalk-table">
+<thead><tr><th>Security theme</th><th>NIST CSF 2.0</th><th>NIST 800-53</th><th>CIS v8.1</th><th>PCI DSS v4.0.1</th><th>SOC 2</th><th>ISO/IEC 27001</th></tr></thead>
+<tbody id="crosswalk-body"></tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="section-pad shell" id="method">
+<div class="section-heading">
+<div><p class="eyebrow">How I work</p><h2>From evidence to a defensible recommendation</h2></div>
+<p>The portfolio follows the same logic used in consulting and assurance work: understand the environment, define criteria, collect evidence, assess risk, and communicate remediation in business terms.</p>
+</div>
+<div class="method-grid">
+<article><span>01</span><h3>Understand the system</h3><p>Map business services, users, data, network paths, cloud dependencies, identity flows, and failure points before judging controls.</p></article>
+<article><span>02</span><h3>Set the criteria</h3><p>Choose the relevant framework outcomes, regulatory obligations, contractual expectations, and risk appetite.</p></article>
+<article><span>03</span><h3>Test with evidence</h3><p>Use configurations, tickets, logs, screenshots, policies, interviews, samples, and technical outputs to distinguish design from operating effectiveness.</p></article>
+<article><span>04</span><h3>Prioritize the risk</h3><p>Consider likelihood, impact, exploitability, exposure, asset criticality, compensating controls, and remediation effort.</p></article>
+<article><span>05</span><h3>Communicate the decision</h3><p>Translate the issue into business impact, accountable ownership, target dates, resource needs, and measurable success criteria.</p></article>
+</div>
+</section>
+<section class="contact-cta section-pad">
+<div class="shell contact-cta-card">
+<div aria-hidden="true" class="cta-orb cta-orb-one"></div>
+<div aria-hidden="true" class="cta-orb cta-orb-two"></div>
+<p class="eyebrow">Let’s connect</p>
+<h2>Looking for someone who can bridge technology, risk, and business?</h2>
+<p>I’m building toward a career in cybersecurity consulting and security engineering, with a focus on cloud, identity, controls, and clear executive communication.</p>
+<a class="button button-light" href="mailto:pranavgumma05@gmail.com">Email Pranav <span aria-hidden="true">↗</span></a>
+</div>
+</section>
+<section class="section-pad source-section" id="sources">
+<div class="shell">
+<div class="section-heading">
+<div><p class="eyebrow">Data provenance</p><h2>Official sources and transparent limitations</h2></div>
+<p>Live vulnerability data is retrieved from CISA’s public repository. Framework identifiers are linked to their authoritative publishers. Mappings, scores, and recommendations are original portfolio analysis.</p>
+</div>
+<div class="source-grid">
+<a href="https://github.com/cisagov/kev-data" rel="noreferrer" target="_blank"><strong>CISA KEV data repository</strong><span>Live JSON data • CC0 public-domain dedication</span></a>
+<a href="https://www.nist.gov/publications/nist-cybersecurity-framework-csf-20" rel="noreferrer" target="_blank"><strong>NIST Cybersecurity Framework 2.0</strong><span>Functions, categories, profiles, and tiers</span></a>
+<a href="https://csrc.nist.gov/News/2025/nist-releases-revision-to-sp-800-53-controls" rel="noreferrer" target="_blank"><strong>NIST SP 800-53 Release 5.2.0</strong><span>Security and privacy control catalog</span></a>
+<a href="https://www.cisecurity.org/controls/v8-1" rel="noreferrer" target="_blank"><strong>CIS Critical Security Controls v8.1</strong><span>Prioritized safeguards and implementation groups</span></a>
+<a href="https://www.pcisecuritystandards.org/standards/pci-dss" rel="noreferrer" target="_blank"><strong>PCI Data Security Standard</strong><span>Payment-card security standard and documents</span></a>
+<a href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2" rel="noreferrer" target="_blank"><strong>AICPA SOC 2 resources</strong><span>Trust Services Criteria and reporting resources</span></a>
+<a href="https://www.iso.org/standard/27001" rel="noreferrer" target="_blank"><strong>ISO/IEC 27001:2022</strong><span>Information security management systems requirements</span></a>
+<a href="https://nvd.nist.gov/developers/vulnerabilities" rel="noreferrer" target="_blank"><strong>NIST National Vulnerability Database API</strong><span>CVE records, metrics, and machine-readable data</span></a>
+</div>
+<p class="source-note">Verified June 24, 2026. This website is an educational portfolio and does not represent a completed audit, attestation, certification, legal opinion, or client engagement.</p>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="shell footer-grid">
+<div><strong>Pranav Gumma</strong><p>Cybersecurity • Finance • Risk • Technology</p></div>
+<div><a href="mailto:pranavgumma05@gmail.com">pranavgumma05@gmail.com</a><p>Built as a static, privacy-conscious portfolio.</p></div>
+</div>
+</footer>
+<template id="finding-template">
+<article class="finding"><div class="finding-icon"></div><div><strong></strong><p></p><small></small></div></article>
+</template>
+<script id="embedded-site-app">
+"use strict";
+
+const LIVE_KEV_URL = "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json";
+const PAGE_SIZE = 8;
+
+const fallbackKev = {
+  title: "CISA Catalog of Known Exploited Vulnerabilities",
+  catalogVersion: "2026.06.23",
+  dateReleased: "2026-06-23T17:00:37.2944Z",
+  count: 1627,
+  snapshotSubset: true,
+  vulnerabilities: [
+    { cveID: "CVE-2025-67038", vendorProject: "Lantronix", product: "EDS5000", vulnerabilityName: "Lantronix EDS5000 Code Injection Vulnerability", dateAdded: "2026-06-23", shortDescription: "Code injection could allow arbitrary operating-system commands to execute with root privileges.", requiredAction: "Apply vendor mitigations and prioritize exposed assets.", dueDate: "2026-06-26", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-78", "CWE-94"] },
+    { cveID: "CVE-2026-34910", vendorProject: "Ubiquiti", product: "UniFi OS", vulnerabilityName: "Ubiquiti UniFi OS Improper Input Validation Vulnerability", dateAdded: "2026-06-23", shortDescription: "Improper input validation could allow command injection from an actor with network access.", requiredAction: "Apply vendor mitigations and validate network exposure.", dueDate: "2026-06-26", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-20"] },
+    { cveID: "CVE-2026-34909", vendorProject: "Ubiquiti", product: "UniFi OS", vulnerabilityName: "Ubiquiti UniFi OS Path Traversal Vulnerability", dateAdded: "2026-06-23", shortDescription: "Path traversal could expose underlying files and accounts.", requiredAction: "Apply vendor mitigations and investigate exposed systems.", dueDate: "2026-06-26", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-22"] },
+    { cveID: "CVE-2026-34908", vendorProject: "Ubiquiti", product: "UniFi OS", vulnerabilityName: "Ubiquiti UniFi OS Improper Access Control Vulnerability", dateAdded: "2026-06-23", shortDescription: "Improper access control could allow unauthorized changes.", requiredAction: "Apply vendor mitigations and review access logs.", dueDate: "2026-06-26", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-284"] },
+    { cveID: "CVE-2026-20253", vendorProject: "Splunk", product: "Enterprise", vulnerabilityName: "Splunk Enterprise Missing Authentication for Critical Function Vulnerability", dateAdded: "2026-06-18", shortDescription: "An unauthenticated user could create or truncate arbitrary files through a service endpoint.", requiredAction: "Apply vendor mitigations and review affected endpoints.", dueDate: "2026-06-21", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-306"] },
+    { cveID: "CVE-2026-48907", vendorProject: "Widget Factory", product: "Joomla Content Editor", vulnerabilityName: "Joomla Content Editor Improper Access Control Vulnerability", dateAdded: "2026-06-16", shortDescription: "Improper access control could allow upload and execution of PHP code.", requiredAction: "Patch or discontinue use when mitigation is unavailable.", dueDate: "2026-06-19", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-284"] },
+    { cveID: "CVE-2026-54420", vendorProject: "LiteSpeed", product: "cPanel Plugin", vulnerabilityName: "LiteSpeed cPanel Plugin Symlink Following Vulnerability", dateAdded: "2026-06-15", shortDescription: "A symbolic-link vulnerability affects some shared-hosting configurations.", requiredAction: "Apply vendor fixes and validate shared-hosting exposure.", dueDate: "2026-06-18", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-61"] },
+    { cveID: "CVE-2026-20262", vendorProject: "Cisco", product: "Catalyst SD-WAN Manager", vulnerabilityName: "Cisco Catalyst SD-WAN Manager Path Traversal Vulnerability", dateAdded: "2026-06-15", shortDescription: "An authenticated remote attacker could create or overwrite files.", requiredAction: "Apply vendor mitigations and review privileged accounts.", dueDate: "2026-06-29", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-22"] },
+    { cveID: "CVE-2026-35273", vendorProject: "Oracle", product: "PeopleSoft Enterprise PeopleTools", vulnerabilityName: "Oracle PeopleSoft Missing Authentication Vulnerability", dateAdded: "2026-06-12", shortDescription: "An unauthenticated network attacker could compromise PeopleTools.", requiredAction: "Apply the vendor security alert immediately and investigate exposure.", dueDate: "2026-06-15", knownRansomwareCampaignUse: "Known", cwes: ["CWE-306"] },
+    { cveID: "CVE-2026-10520", vendorProject: "Ivanti", product: "Sentry", vulnerabilityName: "Ivanti Sentry OS Command Injection Vulnerability", dateAdded: "2026-06-11", shortDescription: "A remote unauthenticated user could achieve root-level code execution in exposed configurations.", requiredAction: "Patch immediately and examine unmanaged or internet-reachable appliances.", dueDate: "2026-06-14", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-78"] },
+    { cveID: "CVE-2026-11645", vendorProject: "Google", product: "Chromium V8", vulnerabilityName: "Google Chromium V8 Out-of-Bounds Read and Write Vulnerability", dateAdded: "2026-06-09", shortDescription: "A crafted web page could enable arbitrary code execution inside a browser sandbox.", requiredAction: "Apply browser vendor updates.", dueDate: "2026-06-23", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-787", "CWE-125"] },
+    { cveID: "CVE-2026-42271", vendorProject: "BerriAI", product: "LiteLLM", vulnerabilityName: "BerriAI LiteLLM Command Injection Vulnerability", dateAdded: "2026-06-08", shortDescription: "An authenticated user could execute arbitrary commands on the host.", requiredAction: "Upgrade to a fixed release and rotate exposed credentials.", dueDate: "2026-06-22", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-78", "CWE-77"] },
+    { cveID: "CVE-2026-50751", vendorProject: "Check Point", product: "Security Gateway", vulnerabilityName: "Check Point Security Gateway Improper Authentication Vulnerability", dateAdded: "2026-06-08", shortDescription: "An unauthenticated attacker could bypass user authentication and establish a VPN connection.", requiredAction: "Apply the vendor hotfix and review remote-access logs.", dueDate: "2026-06-11", knownRansomwareCampaignUse: "Known", cwes: ["CWE-287"] },
+    { cveID: "CVE-2026-28318", vendorProject: "SolarWinds", product: "Serv-U", vulnerabilityName: "SolarWinds Serv-U Resource Consumption Vulnerability", dateAdded: "2026-06-05", shortDescription: "Crafted unauthenticated requests could crash the service.", requiredAction: "Apply the vendor hotfix and monitor service availability.", dueDate: "2026-06-19", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-400"] },
+    { cveID: "CVE-2022-0492", vendorProject: "Linux", product: "Kernel", vulnerabilityName: "Linux Kernel Improper Authentication Vulnerability", dateAdded: "2026-06-02", shortDescription: "A cgroups feature could be abused for privilege escalation.", requiredAction: "Apply vendor kernel updates and validate container hardening.", dueDate: "2026-06-05", knownRansomwareCampaignUse: "Unknown", cwes: ["CWE-287", "CWE-862"] },
+    { cveID: "CVE-2026-48027", vendorProject: "Nx", product: "Nx Console", vulnerabilityName: "Nx Console Embedded Malicious Code Vulnerability", dateAdded: "2026-05-27", shortDescription: "A malicious published extension version harvested credentials.", requiredAction: "Remove affected versions, rotate credentials, and review developer endpoints.", dueDate: "2026-06-10", knownRansomwareCampaignUse: "Known", cwes: ["CWE-506"] }
+  ]
+};
+
+const csfFunctions = [
+  { code: "GV", name: "Govern", outcomes: [
+    ["GV.OC", "Organizational context", "Mission, stakeholders, dependencies, and legal requirements are understood.", 2],
+    ["GV.RM", "Risk management strategy", "Risk appetite, priorities, and decision criteria are defined.", 2],
+    ["GV.OV", "Oversight", "Cybersecurity performance and risk decisions receive leadership oversight.", 1]
+  ]},
+  { code: "ID", name: "Identify", outcomes: [
+    ["ID.AM", "Asset management", "Hardware, software, services, systems, and data are inventoried and prioritized.", 2],
+    ["ID.RA", "Risk assessment", "Threats, vulnerabilities, likelihood, and impact are evaluated.", 2],
+    ["ID.IM", "Improvement", "Lessons from tests and operations drive measurable improvement.", 1]
+  ]},
+  { code: "PR", name: "Protect", outcomes: [
+    ["PR.AA", "Identity, authentication, and access", "Access is limited, reviewed, and strongly authenticated.", 1],
+    ["PR.DS", "Data security", "Data is protected according to sensitivity and lifecycle.", 2],
+    ["PR.PS", "Platform security", "Configurations, patching, and software integrity are managed.", 2]
+  ]},
+  { code: "DE", name: "Detect", outcomes: [
+    ["DE.CM", "Continuous monitoring", "Networks, endpoints, identities, cloud, and suppliers are monitored.", 2],
+    ["DE.AE", "Adverse event analysis", "Events are correlated, scoped, prioritized, and escalated.", 1]
+  ]},
+  { code: "RS", name: "Respond", outcomes: [
+    ["RS.MA", "Incident management", "Incidents are triaged, coordinated, and tracked through closure.", 2],
+    ["RS.AN", "Incident analysis", "Root cause, scope, impact, and evidence are determined.", 1],
+    ["RS.CO", "Response communications", "Internal and external communications are planned and timely.", 2]
+  ]},
+  { code: "RC", name: "Recover", outcomes: [
+    ["RC.RP", "Recovery execution", "Recovery plans restore services and verify integrity.", 1],
+    ["RC.CO", "Recovery communications", "Stakeholders receive coordinated restoration updates.", 2]
+  ]}
+];
+
+const crosswalk = [
+  { theme: "Governance and oversight", csf: "GV.RM, GV.PO, GV.OV", nist: "PM-1, PM-9, PM-28", cis: "Program-wide governance; IG governance mapping", pci: "Requirement 12", soc: "CC1, CC2, CC3, CC4", iso: "Clauses 4–10; A.5.1–A.5.4" },
+  { theme: "Asset and software inventory", csf: "ID.AM", nist: "CM-8, PM-5", cis: "Controls 1 and 2", pci: "2.4; scope documentation", soc: "CC6.1, CC7.1", iso: "A.5.9, A.8.1" },
+  { theme: "Identity and access management", csf: "PR.AA", nist: "AC-2, AC-3, IA-2, IA-5", cis: "Controls 5 and 6", pci: "Requirements 7 and 8", soc: "CC6.1–CC6.3", iso: "A.5.15–A.5.18" },
+  { theme: "Vulnerability and patch management", csf: "ID.RA, PR.PS", nist: "RA-5, SI-2", cis: "Control 7", pci: "Requirements 6 and 11", soc: "CC7.1", iso: "A.8.8" },
+  { theme: "Secure configuration", csf: "PR.PS", nist: "CM-2, CM-6, CM-7", cis: "Control 4", pci: "Requirement 2", soc: "CC5.2, CC7.1", iso: "A.8.9" },
+  { theme: "Logging and monitoring", csf: "DE.CM, DE.AE", nist: "AU-2, AU-6, SI-4", cis: "Controls 8 and 13", pci: "Requirement 10", soc: "CC7.2–CC7.3", iso: "A.8.15–A.8.16" },
+  { theme: "Incident response", csf: "RS.MA, RS.AN, RS.CO, RS.MI", nist: "IR-4, IR-6, IR-8", cis: "Control 17", pci: "12.10", soc: "CC7.4–CC7.5", iso: "A.5.24–A.5.28" },
+  { theme: "Backup and resilience", csf: "PR.IR, RC.RP, RC.CO", nist: "CP-2, CP-9, CP-10", cis: "Control 11", pci: "12.10; availability is scope-dependent", soc: "A1.2–A1.3", iso: "A.5.29–A.5.30, A.8.13–A.8.14" },
+  { theme: "Cloud and service-provider risk", csf: "GV.SC, PR.DS, PR.PS", nist: "SA-9, SR-3, SC-7", cis: "Controls 3, 12, and 15", pci: "Shared responsibility and scope-dependent requirements", soc: "CC6, CC9", iso: "A.5.19–A.5.23" },
+  { theme: "Control testing and assurance", csf: "GV.OV, ID.IM", nist: "CA-2, CA-7, CA-8", cis: "Controls 8, 17, and 18", pci: "Requirements 10–12", soc: "TSC evidence and examination procedures", iso: "Clause 9.2; A.5.35–A.5.36" }
+];
+
+const state = {
+  kev: fallbackKev,
+  liveKev: false,
+  filteredKev: [],
+  kevPage: 1,
+  csfOverall: 0,
+  csfFunctionScores: {},
+  iamScore: null,
+  iamFindings: []
+};
+
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+function safeDate(value) {
+  const date = new Date(`${value}T12:00:00`);
+  return Number.isNaN(date.valueOf()) ? null : date;
+}
+
+function daysBetween(a, b) {
+  return Math.floor((b - a) / 86400000);
+}
+
+function priorityScore(item) {
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  const added = safeDate(item.dateAdded);
+  const due = safeDate(item.dueDate);
+  let score = 0;
+  if (item.knownRansomwareCampaignUse === "Known") score += 50;
+  if (due && due <= today) score += 30;
+  if (added && daysBetween(added, today) <= 14) score += 20;
+  const searchable = `${item.product} ${item.vulnerabilityName} ${item.shortDescription}`.toLowerCase();
+  if (/(vpn|gateway|authentication|identity|browser|remote|internet|cloud|firewall|router|sso)/.test(searchable)) score += 10;
+  return Math.min(score, 100);
+}
+
+function priorityLabel(score) {
+  if (score >= 80) return ["Critical", "priority-critical"];
+  if (score >= 55) return ["High", "priority-high"];
+  if (score >= 30) return ["Medium", "priority-medium"];
+  return ["Routine", "priority-low"];
+}
+
+function formatDate(value) {
+  const date = safeDate(value);
+  return date ? new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(date) : "—";
+}
+
+function initializeNav() {
+  const toggle = $(".nav-toggle");
+  const nav = $(".primary-nav");
+  toggle?.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+  $$(".primary-nav a").forEach(link => link.addEventListener("click", () => {
+    nav.classList.remove("is-open");
+    toggle?.setAttribute("aria-expanded", "false");
+  }));
+}
+
+function initializeTabs() {
+  $$(".project-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      $$(".project-tab").forEach(item => {
+        item.classList.toggle("is-active", item === tab);
+        item.setAttribute("aria-selected", String(item === tab));
+      });
+      $$(".project-panel").forEach(panel => {
+        const active = panel.id === tab.dataset.target;
+        panel.classList.toggle("is-active", active);
+        panel.hidden = !active;
+      });
+    });
+  });
+}
+
+async function loadKevData() {
+  const status = $("#kev-status");
+
+  // Render verified embedded data immediately so the dashboard is useful even
+  // inside file previews, offline browsers, or environments that block fetch().
+  state.kev = fallbackKev;
+  state.liveKev = false;
+  status.classList.remove("is-error");
+  status.innerHTML = `<span class="status-dot"></span><span>Verified CISA snapshot loaded • catalog ${fallbackKev.catalogVersion}. Checking for a newer live catalog…</span>`;
+  renderKevDashboard();
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 3500);
+  try {
+    const response = await fetch(LIVE_KEV_URL, { cache: "no-store", signal: controller.signal });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!Array.isArray(data.vulnerabilities) || data.vulnerabilities.length < 1) throw new Error("Unexpected data format");
+    state.kev = data;
+    state.liveKev = true;
+    status.classList.remove("is-error");
+    status.innerHTML = `<span class="status-dot"></span><span>Live CISA KEV catalog loaded • version ${escapeHtml(data.catalogVersion || "current")} • released ${escapeHtml(formatDate((data.dateReleased || "").slice(0, 10)))}</span>`;
+    renderKevDashboard();
+  } catch (error) {
+    state.kev = fallbackKev;
+    state.liveKev = false;
+    status.classList.add("is-error");
+    status.innerHTML = `<span class="status-dot"></span><span>Live source is blocked or unavailable here. The dashboard remains fully functional with a verified ${fallbackKev.vulnerabilities.length}-record CISA snapshot from catalog ${fallbackKev.catalogVersion}.</span>`;
+    renderKevDashboard();
+    console.warn("CISA live data unavailable; using fallback snapshot.", error);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function renderKevDashboard() {
+  const vulnerabilities = state.kev.vulnerabilities || [];
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  const recent = vulnerabilities.filter(item => {
+    const date = safeDate(item.dateAdded);
+    return date && daysBetween(date, today) <= 30;
+  }).length;
+  const overdue = vulnerabilities.filter(item => {
+    const date = safeDate(item.dueDate);
+    return date && date < today;
+  }).length;
+  const ransomware = vulnerabilities.filter(item => item.knownRansomwareCampaignUse === "Known").length;
+
+  $("#metric-total").textContent = state.liveKev ? String(state.kev.count || vulnerabilities.length) : String(vulnerabilities.length);
+  $("#metric-version").textContent = state.liveKev ? `Catalog ${state.kev.catalogVersion || "current"}` : `Snapshot subset • source catalog ${state.kev.count}`;
+  $("#metric-ransomware").textContent = String(ransomware);
+  $("#metric-recent").textContent = String(recent);
+  $("#metric-overdue").textContent = String(overdue);
+
+  const vendorSelect = $("#vendor-filter");
+  const current = vendorSelect.value;
+  const vendors = [...new Set(vulnerabilities.map(item => item.vendorProject).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+  vendorSelect.innerHTML = `<option value="all">All vendors</option>${vendors.map(vendor => `<option value="${escapeAttribute(vendor)}">${escapeHtml(vendor)}</option>`).join("")}`;
+  if (vendors.includes(current)) vendorSelect.value = current;
+
+  renderVendorBars(vulnerabilities);
+  applyKevFilters();
+}
+
+function applyKevFilters() {
+  const vendor = $("#vendor-filter").value;
+  const ransomware = $("#ransomware-filter").value;
+  const query = $("#kev-search").value.trim().toLowerCase();
+  state.filteredKev = (state.kev.vulnerabilities || [])
+    .filter(item => vendor === "all" || item.vendorProject === vendor)
+    .filter(item => ransomware === "all" || item.knownRansomwareCampaignUse === ransomware)
+    .filter(item => !query || `${item.cveID} ${item.vendorProject} ${item.product} ${item.vulnerabilityName}`.toLowerCase().includes(query))
+    .map(item => ({ ...item, calculatedPriority: priorityScore(item) }))
+    .sort((a, b) => b.calculatedPriority - a.calculatedPriority || String(b.dateAdded).localeCompare(String(a.dateAdded)));
+  state.kevPage = 1;
+  renderKevTable();
+}
+
+function renderKevTable() {
+  const body = $("#kev-table-body");
+  const totalPages = Math.max(1, Math.ceil(state.filteredKev.length / PAGE_SIZE));
+  state.kevPage = Math.min(state.kevPage, totalPages);
+  const start = (state.kevPage - 1) * PAGE_SIZE;
+  const pageItems = state.filteredKev.slice(start, start + PAGE_SIZE);
+
+  if (!pageItems.length) {
+    body.innerHTML = `<tr><td colspan="6">No entries match the current filters.</td></tr>`;
+  } else {
+    body.innerHTML = pageItems.map(item => {
+      const [label, cssClass] = priorityLabel(item.calculatedPriority);
+      return `<tr>
+        <td><span class="priority-pill ${cssClass}">${label} ${item.calculatedPriority}</span></td>
+        <td><strong>${escapeHtml(item.cveID)}</strong><small>${escapeHtml(item.vendorProject)} • ${escapeHtml(item.product)}</small></td>
+        <td>${escapeHtml(formatDate(item.dateAdded))}</td>
+        <td>${escapeHtml(formatDate(item.dueDate))}</td>
+        <td>${escapeHtml(item.knownRansomwareCampaignUse || "Unknown")}</td>
+        <td><a href="https://nvd.nist.gov/vuln/detail/${encodeURIComponent(item.cveID)}" target="_blank" rel="noreferrer">Review CVE</a></td>
+      </tr>`;
+    }).join("");
+  }
+
+  $("#kev-page-label").textContent = `Page ${state.kevPage} of ${totalPages} • ${state.filteredKev.length} results`;
+  $("#kev-prev").disabled = state.kevPage <= 1;
+  $("#kev-next").disabled = state.kevPage >= totalPages;
+}
+
+function renderVendorBars(vulnerabilities) {
+  const counts = new Map();
+  vulnerabilities.forEach(item => counts.set(item.vendorProject || "Unknown", (counts.get(item.vendorProject || "Unknown") || 0) + 1));
+  const top = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const max = Math.max(1, ...top.map(([, count]) => count));
+  $("#vendor-bars").innerHTML = top.map(([vendor, count]) => `<div class="bar-row"><span title="${escapeAttribute(vendor)}">${escapeHtml(vendor)}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round((count / max) * 100)}%"></div></div><b>${count}</b></div>`).join("");
+}
+
+function initializeKevControls() {
+  ["#vendor-filter", "#ransomware-filter"].forEach(selector => $(selector).addEventListener("change", applyKevFilters));
+  $("#kev-search").addEventListener("input", applyKevFilters);
+  $("#kev-prev").addEventListener("click", () => { state.kevPage -= 1; renderKevTable(); });
+  $("#kev-next").addEventListener("click", () => { state.kevPage += 1; renderKevTable(); });
+}
+
+function renderCsfControls() {
+  const container = $("#csf-controls");
+  container.innerHTML = csfFunctions.map(func => `<section class="csf-function" data-function="${func.code}">
+    <div class="csf-function-header"><strong>${escapeHtml(func.name)}</strong><span>${func.code}</span></div>
+    <div class="csf-outcomes">${func.outcomes.map(([code, name, description, initial]) => `<div class="csf-outcome">
+      <div><strong>${escapeHtml(code)} • ${escapeHtml(name)}</strong><small>${escapeHtml(description)}</small></div>
+      <div class="range-wrap"><input type="range" min="0" max="4" step="1" value="${initial}" data-csf-code="${code}" aria-label="${escapeAttribute(name)} maturity score"><span class="range-value">${initial}</span></div>
+    </div>`).join("")}</div>
+  </section>`).join("");
+
+  $$('[data-csf-code]').forEach(range => range.addEventListener("input", event => {
+    event.target.nextElementSibling.textContent = event.target.value;
+    calculateCsfScores();
+  }));
+  calculateCsfScores();
+}
+
+function calculateCsfScores() {
+  const functionScores = {};
+  csfFunctions.forEach(func => {
+    const values = func.outcomes.map(([code]) => Number($(`[data-csf-code="${code}"]`).value));
+    functionScores[func.code] = values.reduce((sum, value) => sum + value, 0) / values.length;
+  });
+  const all = $$('[data-csf-code]').map(input => Number(input.value));
+  const overall = all.reduce((sum, value) => sum + value, 0) / all.length;
+  state.csfOverall = overall;
+  state.csfFunctionScores = functionScores;
+
+  $("#overall-score").textContent = overall.toFixed(1);
+  const degrees = (overall / 4) * 360;
+  $("#score-ring").style.background = `conic-gradient(var(--accent) ${degrees}deg, rgba(255,255,255,.08) ${degrees}deg)`;
+  const maturity = maturityText(overall);
+  $("#maturity-label").textContent = maturity.label;
+  $("#maturity-summary").textContent = maturity.summary;
+  $("#function-scores").innerHTML = csfFunctions.map(func => {
+    const score = functionScores[func.code];
+    return `<div class="function-score"><span>${func.name}</span><div class="bar-track"><div class="bar-fill" style="width:${(score / 4) * 100}%"></div></div><b>${score.toFixed(1)}</b></div>`;
+  }).join("");
+}
+
+function maturityText(score) {
+  if (score < 1) return { label: "Initial", summary: "Practices are mostly informal, reactive, or undocumented." };
+  if (score < 2) return { label: "Developing", summary: "Core practices exist, but consistency and evidence are limited." };
+  if (score < 3) return { label: "Defined", summary: "Processes are documented and repeatable across much of the environment." };
+  if (score < 3.6) return { label: "Managed", summary: "Performance is measured, governed, and actively improved." };
+  return { label: "Adaptive", summary: "Risk information and lessons learned continuously shape decisions." };
+}
+
+function buildRoadmap() {
+  const outcomes = csfFunctions.flatMap(func => func.outcomes.map(([code, name, description]) => ({
+    func: func.name,
+    code,
+    name,
+    description,
+    score: Number($(`[data-csf-code="${code}"]`).value)
+  })));
+  const sorted = outcomes.sort((a, b) => a.score - b.score || a.code.localeCompare(b.code));
+  const phases = [
+    { label: "Days 0–30", items: sorted.slice(0, 3) },
+    { label: "Days 31–60", items: sorted.slice(3, 6) },
+    { label: "Days 61–90", items: sorted.slice(6, 9) }
+  ];
+  $("#roadmap-output").innerHTML = phases.map(phase => `<div class="roadmap-phase"><strong>${phase.label}</strong><ul>${phase.items.map(item => `<li><b>${escapeHtml(item.code)} ${escapeHtml(item.name)}:</b> raise the current score of ${item.score} by assigning an owner, defining evidence, and implementing a measurable target.</li>`).join("")}</ul></div>`).join("");
+  $("#roadmap-card").hidden = false;
+  $("#roadmap-card").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function initializeCsf() {
+  renderCsfControls();
+  $("#generate-roadmap").addEventListener("click", buildRoadmap);
+  $("#copy-roadmap").addEventListener("click", async () => {
+    const text = $("#roadmap-output").innerText;
+    await copyText(text);
+    $("#copy-roadmap").textContent = "Copied";
+    setTimeout(() => { $("#copy-roadmap").textContent = "Copy"; }, 1400);
+  });
+}
+
+const demoPolicy = {
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Sid: "AdminLikeAccess",
+      Effect: "Allow",
+      Action: ["iam:PassRole", "iam:CreatePolicyVersion", "lambda:UpdateFunctionCode", "s3:*"],
+      Resource: "*"
+    },
+    {
+      Sid: "ReadCloudTrail",
+      Effect: "Allow",
+      Action: ["cloudtrail:LookupEvents"],
+      Resource: "*"
+    }
+  ]
+};
+
+function normalizeArray(value) {
+  if (value === undefined || value === null) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+function analyzeIamPolicy(policy) {
+  const findings = [];
+  let score = 0;
+  if (policy.Version !== "2012-10-17") {
+    findings.push({ severity: "medium", title: "Policy language version is missing or unexpected", detail: "Use the current IAM policy language version unless a documented exception is required.", evidence: `Version: ${policy.Version || "not present"}` });
+    score += 8;
+  }
+  const statements = normalizeArray(policy.Statement);
+  if (!statements.length) {
+    return { score: 0, findings: [{ severity: "low", title: "No permission statements found", detail: "The document does not currently grant permissions.", evidence: "Statement array is empty." }] };
+  }
+
+  const privilegeActions = [
+    "iam:passrole", "iam:createpolicyversion", "iam:setdefaultpolicyversion", "iam:attachuserpolicy", "iam:attachrolepolicy",
+    "iam:putuserpolicy", "iam:putrolepolicy", "iam:createaccesskey", "lambda:updatefunctioncode", "lambda:createfunction",
+    "ec2:runinstances", "cloudformation:createstack", "sts:assumerole"
+  ];
+
+  statements.forEach((statement, index) => {
+    const effect = String(statement.Effect || "").toLowerCase();
+    if (effect !== "allow") return;
+    const actions = normalizeArray(statement.Action).map(value => String(value).toLowerCase());
+    const resources = normalizeArray(statement.Resource).map(value => String(value));
+    const sid = statement.Sid || `Statement ${index + 1}`;
+
+    if (actions.includes("*") || actions.some(action => /^([a-z0-9-]+):\*$/.test(action))) {
+      findings.push({ severity: actions.includes("*") ? "critical" : "high", title: "Broad wildcard permissions", detail: "Wildcard actions can allow far more capability than the workload requires.", evidence: `${sid}: ${actions.filter(action => action === "*" || action.endsWith(":*")).join(", ")}` });
+      score += actions.includes("*") ? 35 : 22;
+    }
+    if (resources.includes("*")) {
+      findings.push({ severity: "high", title: "Permissions apply to all resources", detail: "Restrict resources to specific ARNs whenever the service supports resource-level permissions.", evidence: `${sid}: Resource is *` });
+      score += 20;
+    }
+    const escalations = actions.filter(action => privilegeActions.includes(action));
+    if (escalations.length) {
+      findings.push({ severity: "critical", title: "Potential privilege-escalation path", detail: "These actions can create or pass identities, modify code, or launch resources under more privileged execution roles.", evidence: `${sid}: ${escalations.join(", ")}` });
+      score += 30;
+    }
+    if (actions.includes("iam:passrole")) {
+      findings.push({ severity: "high", title: "PassRole requires strict constraints", detail: "Limit iam:PassRole to named roles and pair it with service conditions where possible.", evidence: `${sid}: iam:PassRole` });
+      score += 15;
+    }
+    if (!statement.Condition && (resources.includes("*") || actions.some(action => action.endsWith(":*")))) {
+      findings.push({ severity: "medium", title: "No conditional guardrails", detail: "Conditions can restrict source network, organization, account, region, MFA status, resource tags, or requested service.", evidence: `${sid}: no Condition block` });
+      score += 8;
+    }
+    if (statement.NotAction || statement.NotResource) {
+      findings.push({ severity: "high", title: "Negated permission element requires review", detail: "NotAction and NotResource can create unintentionally broad access when combined with Allow.", evidence: `${sid}: ${statement.NotAction ? "NotAction" : ""} ${statement.NotResource ? "NotResource" : ""}`.trim() });
+      score += 18;
+    }
+  });
+
+  if (!findings.length) findings.push({ severity: "low", title: "No obvious high-risk patterns detected", detail: "This static review did not identify common broad-permission patterns. Validate service-specific semantics, trust policies, permission boundaries, SCPs, and actual access paths.", evidence: "Static pattern analysis only." });
+  return { score: Math.min(100, score), findings };
+}
+
+function renderIamResult(result) {
+  state.iamScore = result.score;
+  state.iamFindings = result.findings;
+  $("#iam-score").textContent = String(result.score);
+  const badge = $("#iam-risk-badge");
+  badge.className = "risk-badge";
+  let label = "Low";
+  let cssClass = "risk-low";
+  if (result.score >= 75) { label = "Critical"; cssClass = "risk-critical"; }
+  else if (result.score >= 50) { label = "High"; cssClass = "risk-high"; }
+  else if (result.score >= 25) { label = "Medium"; cssClass = "risk-medium"; }
+  badge.textContent = `${label} risk`;
+  badge.classList.add(cssClass);
+  const template = $("#finding-template");
+  const container = $("#iam-findings");
+  container.innerHTML = "";
+  result.findings.forEach(finding => {
+    const node = template.content.cloneNode(true);
+    const article = $(".finding", node);
+    article.classList.add(`severity-${finding.severity}`);
+    $("strong", node).textContent = finding.title;
+    $("p", node).textContent = finding.detail;
+    $("small", node).textContent = finding.evidence;
+    container.appendChild(node);
+  });
+}
+
+function initializeIam() {
+  $("#load-demo-policy").addEventListener("click", () => {
+    $("#iam-policy").value = JSON.stringify(demoPolicy, null, 2);
+  });
+  $("#analyze-policy").addEventListener("click", () => {
+    try {
+      const policy = JSON.parse($("#iam-policy").value);
+      renderIamResult(analyzeIamPolicy(policy));
+    } catch (error) {
+      renderIamResult({ score: 0, findings: [{ severity: "critical", title: "Invalid JSON", detail: "Correct the policy syntax before evaluating permissions.", evidence: error.message }] });
+    }
+  });
+}
+
+function renderCrosswalk(filter = "all") {
+  const rows = filter === "all" ? crosswalk : crosswalk.filter(row => row.theme === filter);
+  $("#crosswalk-body").innerHTML = rows.map(row => `<tr><td>${escapeHtml(row.theme)}</td><td>${escapeHtml(row.csf)}</td><td>${escapeHtml(row.nist)}</td><td>${escapeHtml(row.cis)}</td><td>${escapeHtml(row.pci)}</td><td>${escapeHtml(row.soc)}</td><td>${escapeHtml(row.iso)}</td></tr>`).join("");
+}
+
+function initializeCrosswalk() {
+  const filter = $("#crosswalk-filter");
+  filter.innerHTML = `<option value="all">All themes</option>${crosswalk.map(row => `<option value="${escapeAttribute(row.theme)}">${escapeHtml(row.theme)}</option>`).join("")}`;
+  filter.addEventListener("change", () => renderCrosswalk(filter.value));
+  $("#export-crosswalk").addEventListener("click", () => {
+    const headers = ["Security theme", "NIST CSF 2.0", "NIST SP 800-53", "CIS Controls v8.1", "PCI DSS v4.0.1", "SOC 2", "ISO/IEC 27001"];
+    const rows = crosswalk.map(row => [row.theme, row.csf, row.nist, row.cis, row.pci, row.soc, row.iso]);
+    const csv = [headers, ...rows].map(row => row.map(csvEscape).join(",")).join("\n");
+    downloadText("cybersecurity-control-crosswalk.csv", csv, "text/csv;charset=utf-8");
+  });
+  renderCrosswalk();
+}
+
+function buildExecutiveBrief() {
+  const org = $("#report-org").value.trim() || "Organization";
+  const audience = $("#report-audience").value;
+  const focus = $("#report-focus").value;
+  const context = $("#report-context").value.trim();
+  const vulnerabilities = state.kev.vulnerabilities || [];
+  const sorted = vulnerabilities.map(item => ({ ...item, calculatedPriority: priorityScore(item) })).sort((a, b) => b.calculatedPriority - a.calculatedPriority);
+  const top = sorted.slice(0, 3);
+  const ransomware = vulnerabilities.filter(item => item.knownRansomwareCampaignUse === "Known").length;
+  const lowestFunction = Object.entries(state.csfFunctionScores).sort((a, b) => a[1] - b[1])[0] || ["PR", 0];
+  const functionName = csfFunctions.find(func => func.code === lowestFunction[0])?.name || lowestFunction[0];
+  const generated = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date());
+
+  const report = $("#executive-report");
+  report.innerHTML = `
+    <div class="report-head">
+      <div><p>CYBER RISK BRIEF</p><h3>${escapeHtml(org)}</h3><small>Prepared for ${escapeHtml(audience)}</small></div>
+      <div><small>${escapeHtml(generated)}</small><p>${escapeHtml(focus)}</p></div>
+    </div>
+    <section class="report-section">
+      <h4>Executive assessment</h4>
+      <p>${escapeHtml(context)} The current portfolio analysis indicates that actively exploited vulnerabilities and uneven control maturity should be managed as business-resilience issues rather than isolated technical defects.</p>
+      <div class="report-callout"><strong>Decision requested:</strong> confirm accountable owners for urgent remediation, approve a 30-day validation cycle, and require evidence that critical exposure has been removed or formally accepted.</div>
+    </section>
+    <section class="report-section">
+      <h4>What leadership should know</h4>
+      <ul>
+        <li>The loaded CISA dataset contains <strong>${state.liveKev ? escapeHtml(String(state.kev.count || vulnerabilities.length)) : `${vulnerabilities.length} displayed snapshot records`}</strong>, including <strong>${ransomware}</strong> entries marked for known ransomware campaign use in the loaded data.</li>
+        <li>The NIST CSF demo assessment currently scores <strong>${state.csfOverall.toFixed(1)} of 4.0</strong>; the lowest function is <strong>${escapeHtml(functionName)}</strong> at ${Number(lowestFunction[1]).toFixed(1)}.</li>
+        <li>${state.iamScore === null ? "No IAM policy result has been incorporated yet." : `The IAM policy review produced a risk score of <strong>${state.iamScore}/100</strong> with ${state.iamFindings.length} findings.`}</li>
+      </ul>
+    </section>
+    <section class="report-section">
+      <h4>Immediate technical priorities</h4>
+      <ul>${top.map(item => `<li><strong>${escapeHtml(item.cveID)} — ${escapeHtml(item.vendorProject)} ${escapeHtml(item.product)}:</strong> priority score ${item.calculatedPriority}; validate ownership, exposure, patch status, and compensating controls.</li>`).join("")}</ul>
+    </section>
+    <section class="report-section">
+      <h4>30-day management actions</h4>
+      <ul>
+        <li>Require asset owners to reconcile CISA KEV entries against the hardware, software, cloud-service, and internet-exposure inventories.</li>
+        <li>Close the weakest CSF function through named ownership, target-state evidence, and weekly reporting on overdue actions.</li>
+        <li>Review privileged identities, wildcard cloud permissions, dormant accounts, MFA coverage, role-passing rights, and emergency access.</li>
+        <li>Provide leadership with exception decisions that identify business impact, expiration date, compensating controls, and accountable approver.</li>
+      </ul>
+    </section>
+    <div class="report-actions"><button class="button button-ghost button-small" id="copy-report" type="button">Copy brief</button><button class="button button-small" id="print-report" type="button">Print / save PDF</button></div>`;
+
+  $("#copy-report").addEventListener("click", async event => {
+    await copyText(report.innerText.replace("Copy briefPrint / save PDF", ""));
+    event.target.textContent = "Copied";
+    setTimeout(() => { event.target.textContent = "Copy brief"; }, 1400);
+  });
+  $("#print-report").addEventListener("click", () => window.print());
+}
+
+function initializeReport() {
+  $("#build-report").addEventListener("click", buildExecutiveBrief);
+}
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+}
+
+function csvEscape(value) {
+  return `"${String(value).replaceAll('"', '""')}"`;
+}
+
+function downloadText(filename, content, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>'"]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll("`", "&#96;");
+}
+
+
+function initializeVisualPolish() {
+  const revealTargets = document.querySelectorAll(
+    ".section-heading, .project-tabs, .project-panel, .method-grid article, .source-grid a, .contact-cta-card"
+  );
+
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    revealTargets.forEach(element => element.classList.add("is-visible"));
+    return;
+  }
+
+  revealTargets.forEach((element, index) => {
+    element.classList.add("reveal");
+    element.style.transitionDelay = `${Math.min(index % 5, 4) * 45}ms`;
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+
+  revealTargets.forEach(element => observer.observe(element));
+
+  const heroPanel = document.querySelector(".hero-panel");
+  if (heroPanel && window.matchMedia("(pointer: fine)").matches) {
+    heroPanel.addEventListener("pointermove", event => {
+      const bounds = heroPanel.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      heroPanel.style.transform = `perspective(1100px) rotateX(${(-y * 3).toFixed(2)}deg) rotateY(${(x * 4).toFixed(2)}deg) rotateZ(1.1deg)`;
+    });
+    heroPanel.addEventListener("pointerleave", () => {
+      heroPanel.style.transform = "rotate(1.1deg)";
+    });
+  }
+}
+
+const activisionProfile = [
+  { code: "GV", name: "Govern", value: 1.5 },
+  { code: "ID", name: "Identify", value: 1.4 },
+  { code: "PR", name: "Protect", value: 2.5 },
+  { code: "DE", name: "Detect", value: 2.2 },
+  { code: "RS", name: "Respond", value: 1.8 },
+  { code: "RC", name: "Recover", value: 1.0 }
+];
+
+const activisionSources = [
+  { id:"S01", title:"Microsoft 2025 Annual Report", note:"Acquisition status, gaming business context, FY2025 Xbox content and services growth.", url:"https://www.microsoft.com/investor/reports/ar25/index.html" },
+  { id:"S02", title:"Activision Blizzard 2022 Form 10-K", note:"389M Q4 MAUs, infrastructure, cyber, privacy, virtual economy, service disruption, and third-party risk disclosures.", url:"https://www.sec.gov/Archives/edgar/data/718877/000162828023004842/atvi-20221231.htm" },
+  { id:"S03", title:"Activision Privacy Policy", note:"Data categories, purposes, linked accounts, gameplay and communications monitoring, vendors, security and retention statements.", url:"https://www.activision.com/legal/privacy-policy" },
+  { id:"S04", title:"Activision Account Security", note:"Public account-security controls and support pathways, including recovery, email verification, 2FA, TPM and Secure Boot.", url:"https://support.activision.com/account-security" },
+  { id:"S05", title:"Activision Two-Factor Authentication", note:"Authenticator-app workflow, backup codes, and SMS verification requirements for certain free-to-play PC accounts.", url:"https://support.activision.com/articles/using-two-factor-authentication-with-an-activision-account" },
+  { id:"S06", title:"Activision Email Verification", note:"Login verification and response guidance for suspicious login attempts.", url:"https://support.activision.com/articles/activision-account-email-verification" },
+  { id:"S07", title:"Hacked Account Recovery", note:"Public recovery workflow for unauthorized account activity.", url:"https://support.activision.com/account-recovery" },
+  { id:"S08", title:"RICOCHET Anti-Cheat Overview", note:"Server-side analytics, investigation, account-security measures, client controls, and recurring updates.", url:"https://support.activision.com/articles/ricochet-overview" },
+  { id:"S09", title:"TPM 2.0 and Secure Boot", note:"Hardware-backed integrity controls required for selected Call of Duty experiences.", url:"https://support.activision.com/articles/trusted-platform-module-and-secure-boot" },
+  { id:"S10", title:"Privacy & Data Protection Portal", note:"Access, portability, deletion, correction, and opt-out request mechanisms.", url:"https://support.activision.com/articles/activision-privacy-data-protection-portal" },
+  { id:"S11", title:"Call of Duty Security & Enforcement", note:"Client/server detection, behavioral analytics, tamper validation, enforcement, and prohibited abuse.", url:"https://support.activision.com/articles/call-of-duty-security-and-enforcement-policy" },
+  { id:"S12", title:"Activision Vulnerability Disclosure Page", note:"Public channel for security researchers to report potential vulnerabilities.", url:"https://hackerone.com/activision-blizzard" },
+  { id:"S13", title:"NIST Cybersecurity Framework 2.0", note:"Govern, Identify, Protect, Detect, Respond, and Recover outcome structure.", url:"https://www.nist.gov/publications/nist-cybersecurity-framework-csf-20" },
+  { id:"S14", title:"NIST SP 800-53 Rev. 5", note:"Security and privacy control catalog used for detailed control mapping and test objectives.", url:"https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" },
+  { id:"S15", title:"CIS Controls v8.1", note:"Prioritized safeguards for identity, vulnerability, software, data, logging, response, and recovery.", url:"https://www.cisecurity.org/controls/v8-1" },
+  { id:"S16", title:"CISA KEV Catalog", note:"Authoritative input for prioritizing vulnerabilities with evidence of exploitation in the wild.", url:"https://www.cisa.gov/known-exploited-vulnerabilities-catalog" }
+];
+
+const observedControls = [
+  { title:"Consumer 2FA", note:"Authenticator-app 2FA, backup codes, and SMS verification are publicly documented.", ref:"S04–S05" },
+  { title:"Email verification", note:"Public documentation describes verification prompts and suspicious-login response guidance.", ref:"S04 / S06" },
+  { title:"Account recovery", note:"A dedicated hacked-account recovery process is available to players.", ref:"S07" },
+  { title:"Anti-cheat monitoring", note:"RICOCHET describes server/client detection, behavioral models, application monitoring, and tamper checks.", ref:"S08 / S11" },
+  { title:"Platform integrity", note:"TPM 2.0, Secure Boot, and selected remote-attestation requirements are publicly described.", ref:"S09" },
+  { title:"Privacy rights workflow", note:"Access, portability, deletion, correction, and opt-out mechanisms are publicly available.", ref:"S03 / S10" },
+  { title:"Security research channel", note:"A public vulnerability reporting page exists through HackerOne.", ref:"S12" }
+];
+
+const activisionRisks = [
+  { id:"R01", title:"Player account takeover and linked-identity abuse", domain:"Identity", owner:"VP Player Security", likelihood:5, impact:5, residual:15, priority:"Critical", evidence:"Activision publicly documents 2FA, email verification, linked platform accounts, hacked-account recovery, and account-security guidance, demonstrating that account compromise is a material operating concern.", scenario:"Credential stuffing, phishing, session theft, SIM abuse, or linked-platform compromise enables unauthorized changes, virtual-asset theft, cheating, resale, enforcement disputes, and support escalation.", controls:"Risk-based authentication; passkeys; step-up for email, phone, and linked-account changes; recovery hold periods; device/session intelligence; impossible-travel and token-replay detection; high-risk support proofing.", metrics:"ATO rate per 100k active accounts; recovery-to-compromise rate; high-risk changes challenged; passkey/2FA adoption; mean time to session revocation.", mapping:"NIST PR.AA, DE.CM, RS.MA; IA-2, IA-5, AC-7, AU-6; CIS 5, 6, 8" },
+  { id:"R02", title:"Privileged workforce identity compromise", domain:"Identity", owner:"CISO / CIO", likelihood:4, impact:5, residual:12, priority:"Critical", evidence:"Public sources do not establish internal privileged-access controls. The business relies on source code, game services, customer data, and external infrastructure, increasing the impact of a privileged credential compromise.", scenario:"Phishing, token theft, password reuse, overprivileged service principals, or weak emergency access allows attacker movement into repositories, cloud, production, support, or customer-data environments.", controls:"Phishing-resistant MFA; JIT/PAM; device compliance; conditional access; workload identity governance; quarterly access certification; break-glass monitoring; session recording for critical administration.", metrics:"Privileged FIDO2 coverage; standing privileged accounts; stale entitlements; JIT approval SLA; anomalous privileged sessions; break-glass test results.", mapping:"NIST GV.RR, PR.AA; AC-2, AC-6, IA-2, IA-5; CIS 5, 6" },
+  { id:"R03", title:"Source code, game assets, or anti-cheat intellectual property theft", domain:"Software delivery", owner:"CTO / Studio Security", likelihood:4, impact:5, residual:12, priority:"Critical", evidence:"Activision’s 2022 10-K explicitly identifies source code, game assets, anti-cheat code, piracy, and code-base/platform exploitation as cyber risks.", scenario:"Repository compromise, insider misuse, vendor access, malware, or credential theft exposes unreleased assets or anti-cheat logic and weakens game integrity and launch plans.", controls:"Repository segmentation; least privilege; DLP; protected branches; secret scanning; watermarking; high-risk download analytics; vendor isolation; honeytokens; rapid credential and signing-key rotation.", metrics:"Sensitive-repository access exceptions; mass-download alerts; secrets exposure time; vendor access age; protected-branch coverage; investigation close time.", mapping:"NIST PR.DS, PR.PS, DE.CM; AC-3, AU-6, SC-7, SI-4; CIS 3, 6, 8, 16" },
+  { id:"R04", title:"Live-service outage, DDoS, or dependency failure", domain:"Resilience", owner:"SVP Online Services", likelihood:4, impact:5, residual:12, priority:"Critical", evidence:"The 10-K identifies outages, infrastructure scaling, service degradation, network attacks, and availability disruption as business risks; online access is central to the operating model.", scenario:"DDoS, cloud or platform failure, capacity shortfall, DNS/CDN incident, bad deployment, or identity outage prevents login, matchmaking, commerce, or gameplay during a launch or event.", controls:"Service tiering; SLO/error budgets; DDoS architecture; dependency mapping; chaos testing; launch readiness; multi-region recovery; rate limiting; status communications; game-day incident command.", metrics:"Availability by critical journey; failed-login and matchmaking rate; MTTD/MTTR; DDoS mitigation time; restore-test success; launch-day capacity margin.", mapping:"NIST ID.AM, PR.IR, DE.CM, RS.MA, RC.RP; CP-2, CP-4, SC-5, SI-13; CIS 12, 13, 17" },
+  { id:"R05", title:"CI/CD or software supply-chain compromise", domain:"Software delivery", owner:"Head of DevSecOps", likelihood:3, impact:5, residual:10, priority:"High", evidence:"Public disclosures identify product code-base and distribution-platform exploitation, including malware insertion. Public evidence does not establish current artifact-provenance or signing controls.", scenario:"Compromised dependency, build worker, token, action, artifact repository, or signing key introduces unauthorized code into game clients, launchers, services, or updates.", controls:"Isolated build and signing; ephemeral runners; dependency pinning; SBOM; SLSA-style provenance; two-person release approval; signed commits/artifacts; secrets vault; deployment attestation; rollback kill switch.", metrics:"Signed artifact coverage; critical dependencies with provenance; branch-protection exceptions; secrets detected; build worker lifetime; emergency rollback time.", mapping:"NIST GV.SC, PR.PS, DE.CM; SA-10, SA-11, SR-3, SR-4, SI-7; CIS 2, 16" },
+  { id:"R06", title:"Privacy, retention, and rights-request failure", domain:"Privacy", owner:"Chief Privacy Officer", likelihood:4, impact:4, residual:10, priority:"High", evidence:"Activision’s privacy policy describes extensive data collection and rights workflows; the 10-K identifies GDPR, CCPA, PIPL, COPPA, UK Age-Appropriate Design Code, and evolving privacy regulation.", scenario:"Incomplete inventory, excessive retention, vendor data lineage gaps, failed deletion, inaccurate preference handling, or delayed rights requests produce regulatory, legal, and trust impact.", controls:"Data inventory and ROPA; purpose/retention tags; automated deletion; DSAR orchestration; consent lineage; data minimization; minors controls; vendor deletion attestations; privacy control monitoring.", metrics:"DSAR completion and exception rate; overdue retention actions; unowned stores; deletion verification; consent mismatch rate; privacy incident volume.", mapping:"NIST GV.OC, ID.AM, PR.DS; PT-2, PT-3, DM-2, AR-4; CIS 3" },
+  { id:"R07", title:"Third-party platform, vendor, or linked-service compromise", domain:"Third party", owner:"Chief Procurement Officer", likelihood:4, impact:4, residual:12, priority:"High", evidence:"Public filings and privacy disclosures identify platform providers, external service providers, data processors, advertising partners, and linked console/PC identities.", scenario:"A critical platform, payment, support, ad-tech, cloud, development, or identity partner suffers a breach or outage that affects users, data, authentication, releases, or compliance.", controls:"Tiered vendor inventory; security requirements; architecture-level dependency mapping; assurance review; continuous monitoring; data-flow contracts; incident notification SLA; exit and concentration plans.", metrics:"Critical vendors with current assurance; overdue findings; fourth-party transparency; concentration risks; notification SLA compliance; recovery-test participation.", mapping:"NIST GV.SC, ID.RA, RS.CO; SR-2, SR-3, SR-6, SA-9; CIS 15" },
+  { id:"R08", title:"Virtual economy fraud, account resale, and entitlement abuse", domain:"Fraud", owner:"VP Trust & Safety", likelihood:4, impact:4, residual:9, priority:"High", evidence:"The 10-K identifies virtual currencies/assets, fraud, exploitation, abuse, illegitimate generation, and revenue/reputation impact. SMS verification is also described as addressing illicit account selling.", scenario:"Bots, stolen payment methods, account farms, compromised accounts, promotion abuse, or game exploits create unauthorized virtual currency, items, entitlements, or resale activity.", controls:"Graph analytics; device reputation; velocity controls; payment risk scoring; entitlement reconciliation; step-up verification; seller-marketplace intelligence; reversible high-risk transfers.", metrics:"Fraud loss basis points; chargebacks; suspicious asset velocity; account-farm clusters; false-positive rate; time to freeze/recover assets.", mapping:"NIST ID.RA, DE.AE, RS.MI; AU-6, SI-4, AC-7; CIS 8, 13" },
+  { id:"R09", title:"Customer-support or account-recovery social engineering", domain:"Identity", owner:"VP Customer Experience", likelihood:3, impact:4, residual:11, priority:"High", evidence:"Activision provides public recovery and support processes, but public information cannot establish internal agent proofing, escalation, or override controls.", scenario:"An attacker persuades support to change email, remove 2FA, unlink an identity, or restore access using breached personal information or fabricated ownership evidence.", controls:"Risk-tiered identity proofing; no single-agent high-risk overrides; transaction cooling period; player notification; case analytics; QA sampling; agent least privilege; insider-collusion monitoring.", metrics:"Recovery fraud rate; overrides per agent; QA exception rate; cooling-period bypasses; high-risk change reversal time.", mapping:"NIST PR.AA, DE.CM, RS.AN; IA-2, IA-8, AC-6, AU-6; CIS 6, 8" },
+  { id:"R10", title:"Game integrity degradation and cheat ecosystem", domain:"Game integrity", owner:"Head of RICOCHET / Studios", likelihood:5, impact:4, residual:10, priority:"Critical", evidence:"Activision publicly describes client/server detection, behavioral analytics, application monitoring, hardware-tamper validation, enforcement, TPM/Secure Boot, and remote attestation for selected modes.", scenario:"Cheat developers bypass controls, steal anti-cheat insights, weaponize drivers, abuse hardware, or generate false positives that undermine player trust and competitive integrity.", controls:"Layered detection; protected telemetry; model governance; adversarial testing; remote attestation; cheat-market intelligence; appeal quality; false-positive monitoring; separation of detection and enforcement.", metrics:"Cheater prevalence; detection dwell time; ban evasion; false-positive reversal; protected-session coverage; new-cheat time to mitigation.", mapping:"NIST PR.PS, DE.AE, DE.CM, RS.MI; SI-3, SI-4, SI-7; CIS 8, 13, 16" },
+  { id:"R11", title:"Player communications, minors, and safety control failure", domain:"Privacy", owner:"Chief Safety Officer", likelihood:3, impact:5, residual:10, priority:"High", evidence:"Activision states it may monitor gameplay and text/voice communications, identifies anti-toxicity practices, and cites children’s and age-appropriate design obligations.", scenario:"Inadequate age handling, moderation, retention, escalation, model accuracy, or harmful-contact detection creates safety, regulatory, and reputational impact.", controls:"Age-assurance governance; safety-by-design reviews; moderation accuracy metrics; appeals; high-severity escalation; retention limits; model bias review; guardian controls; regulator-ready documentation.", metrics:"Severe-content detection latency; appeal overturn rate; minors-control coverage; escalation SLA; moderation false positives/negatives; retention compliance.", mapping:"NIST GV.OC, PR.DS, DE.AE, RS.CO; PT-2, PT-3, AU-6; CIS 3, 8" },
+  { id:"R12", title:"Insider misuse or excessive internal data access", domain:"Data protection", owner:"CISO / HR / Legal", likelihood:3, impact:5, residual:10, priority:"High", evidence:"The 10-K identifies employee and authorized-third-party error or improper access as potential sources of data and code compromise.", scenario:"Employee, contractor, vendor, or compromised internal user accesses or exports player data, source code, unreleased content, investigations, or enforcement information beyond job need.", controls:"Role and attribute-based access; joiner/mover/leaver automation; sensitive-data monitoring; UEBA; quarterly certification; clean-room access; investigation workflow; sanctions and insider-risk governance.", metrics:"Access recertification completion; dormant access; sensitive exports; JML SLA; policy exceptions; insider investigation aging.", mapping:"NIST GV.RR, PR.AA, PR.DS, DE.CM; AC-2, AC-6, AU-6, PS-4; CIS 5, 6, 8" }
+];
+
+const controlDomains = [
+  { code:"ID-01", title:"Player identity and recovery", text:"Reduce takeover and recovery fraud while preserving a low-friction player experience.", items:["Passkey and authenticator adoption strategy", "Step-up for email, phone, link/unlink, and commerce changes", "Risk-based recovery proofing with cooling periods", "Device, token, velocity, and behavioral intelligence"] },
+  { code:"ID-02", title:"Privileged and workload access", text:"Protect production, repositories, support, telemetry, and cloud administration.", items:["Phishing-resistant MFA and compliant-device access", "PAM/JIT for standing privilege reduction", "Service-principal ownership and credential rotation", "Break-glass control, testing, and alerting"] },
+  { code:"SD-01", title:"Secure software delivery", text:"Make every production artifact traceable, approved, and verifiable.", items:["Protected branches and independent release approval", "Ephemeral, isolated build and signing environments", "SBOM, provenance, dependency policy, and artifact signing", "Deployment attestation, canary, rollback, and kill switch"] },
+  { code:"VM-01", title:"Exposure and vulnerability management", text:"Prioritize exploited and internet-facing risk using business context.", items:["Authoritative asset/service ownership", "CISA KEV exposure decision within 24 hours", "Risk-tier remediation SLAs and exception expiry", "Threat intelligence, validation, and executive aging metrics"] },
+  { code:"RS-01", title:"Live-service resilience", text:"Manage availability around player journeys, launches, and shared dependencies.", items:["Critical journey SLOs and error budgets", "DDoS, capacity, dependency, and regional failure playbooks", "Immutable backup and restore testing", "Launch-day command, status communication, and postmortems"] },
+  { code:"PV-01", title:"Privacy and data governance", text:"Prove purpose, location, retention, rights, and vendor handling for player data.", items:["Data inventory and processing records", "Retention automation and exception governance", "DSAR identity proofing and deletion verification", "Minors, communications, advertising, and consent controls"] },
+  { code:"TP-01", title:"Third-party and platform risk", text:"Make dependency and data-chain risk visible before contracts and releases.", items:["Criticality tiering and security requirements", "Assurance review and evidence refresh", "Incident notification and cooperation clauses", "Concentration, fourth-party, exit, and recovery planning"] },
+  { code:"GI-01", title:"Game integrity and anti-fraud", text:"Protect fair play, virtual assets, and enforcement quality through layered signals.", items:["Client/server analytics and attestation", "Cheat-market and account-farm intelligence", "Detection model governance and adversarial testing", "Appeal quality and false-positive monitoring"] },
+  { code:"IR-01", title:"Incident and executive governance", text:"Accelerate decisions with clear authority, evidence, and business impact reporting.", items:["Severity model and decision rights", "Cross-functional playbooks and legal triggers", "Forensic evidence standards and communications", "Board KRIs, risk acceptance, and remediation assurance"] }
+];
+
+const controlCrosswalk = [
+  ["Phishing-resistant privileged access", "PR.AA-03 / PR.AA-05", "IA-2, AC-2, AC-6", "5, 6", "IdP export, PAM logs, account population, exception register"],
+  ["Player account recovery integrity", "PR.AA-01 / DE.CM-03", "IA-8, AC-7, AU-6", "6, 8", "Recovery cases, proofing rules, override logs, fraud outcomes"],
+  ["Trusted software artifacts", "PR.PS-06 / GV.SC-07", "SA-10, SI-7, SR-4", "2, 16", "Branch rules, build config, signatures, SBOM, provenance"],
+  ["KEV risk-tier remediation", "ID.RA-01 / ID.RA-06", "RA-5, SI-2", "7", "Asset inventory, scanner output, KEV matches, tickets, exceptions"],
+  ["Critical-service recoverability", "PR.IR-03 / RC.RP-03", "CP-2, CP-4, CP-10", "11", "RTO/RPO, backup config, restore results, corrective actions"],
+  ["Player-data lifecycle", "GV.OC-03 / PR.DS-10", "PT-2, PT-3, DM-2", "3", "ROPA, data map, retention jobs, DSAR and deletion evidence"],
+  ["Critical vendor assurance", "GV.SC-04 / GV.SC-07", "SR-2, SR-3, SA-9", "15", "Vendor tiering, contracts, assessments, findings, monitoring"],
+  ["Incident command and reporting", "RS.MA-01 / RS.CO-02", "IR-4, IR-6, IR-8", "17", "Playbooks, exercises, incident records, executive reports" ]
+];
+
+const evidenceArtifacts = [
+  ["Identity", "Authoritative privileged-user and service-account population"],
+  ["Identity", "IdP authentication-method and conditional-access export"],
+  ["Identity", "PAM/JIT configuration and privileged session logs"],
+  ["Identity", "Joiner/mover/leaver and access-certification evidence"],
+  ["Recovery", "Player account-recovery population and outcomes"],
+  ["Recovery", "Support override logs and quality-review results"],
+  ["Software", "Repository permissions and protected-branch configuration"],
+  ["Software", "CI/CD service identities, secrets, and runner configuration"],
+  ["Software", "Artifact signing, SBOM, provenance, and release approvals"],
+  ["Vulnerability", "Internet-facing asset and service inventory"],
+  ["Vulnerability", "Scanner output reconciled to CISA KEV"],
+  ["Vulnerability", "Patch tickets, SLA metrics, and exception register"],
+  ["Resilience", "Critical-service dependency map and SLOs"],
+  ["Resilience", "RTO/RPO, backup configuration, and restore-test evidence"],
+  ["Resilience", "DDoS and launch-day incident playbooks"],
+  ["Privacy", "Data inventory, processing records, and retention schedule"],
+  ["Privacy", "DSAR metrics, deletion proof, and consent lineage"],
+  ["Privacy", "Minors and communications safety-control documentation"],
+  ["Third party", "Critical-vendor inventory, contracts, and assurance"],
+  ["Governance", "Risk register, acceptance records, KRIs, and committee minutes"]
+];
+
+const auditTests = [
+  { id:"T01", title:"Privileged phishing-resistant MFA", objective:"Determine whether all production, code-signing, repository-administration, and cloud-administration identities require an approved phishing-resistant factor.", population:"All privileged human identities and break-glass accounts during the review period.", procedure:"Reconcile the privileged population to IdP/PAM exports; inspect authentication policy; sample 25 accounts plus all break-glass accounts; verify method, device condition, last use, owner, and exception approval.", pass:"100% coverage; exceptions time-bound, approved, monitored, and protected by compensating controls." },
+  { id:"T02", title:"High-risk player account changes", objective:"Determine whether email, phone, password, 2FA, linked-identity, and recovery changes receive risk-based verification and monitoring.", population:"All high-risk account-change and recovery events for a selected month.", procedure:"Validate population completeness; select 40 risk-stratified events; inspect challenge, device/session signals, notifications, hold periods, overrides, and subsequent fraud outcome.", pass:"Controls applied as designed; unauthorized override and post-recovery takeover rates within approved thresholds." },
+  { id:"T03", title:"Production artifact integrity", objective:"Determine whether only approved, traceable, signed artifacts can reach production.", population:"All production deployments for two major services and one game-client release during the period.", procedure:"Trace 25 deployments from ticket and commit through build, test, signature, provenance, approval, artifact repository, and deployment attestation; inspect emergency path separately.", pass:"Every artifact traces to approved source and trusted build; no unapproved signature, mutable artifact, or bypass." },
+  { id:"T04", title:"CISA KEV remediation", objective:"Determine whether exploited vulnerabilities receive expedited exposure validation and remediation.", population:"All CISA KEV additions during the review period plus open historical KEV matches.", procedure:"Reconcile KEV feed to asset/scanner population; sample all internet-facing matches and 25 internal matches; inspect ownership, exploitability decision, remediation, validation, and exceptions.", pass:"Exposure decision within 24 hours; remediation within approved tier SLA; exceptions have compensating controls and expiry." },
+  { id:"T05", title:"Critical-service recovery", objective:"Determine whether critical player journeys can be restored within approved objectives.", population:"Tier-0 and Tier-1 services supporting authentication, matchmaking, commerce, entitlements, and deployment.", procedure:"Inspect approved RTO/RPO and dependency maps; select five services; witness or inspect restore tests; compare actual results, data loss, dependencies, and corrective actions to targets.", pass:"At least 95% meet objectives; failures have owned, dated remediation and retest." },
+  { id:"T06", title:"Player-data retention and deletion", objective:"Determine whether personal data is retained and deleted according to approved purpose and schedule, including linked systems and vendors.", population:"Critical data stores and completed deletion requests during the period.", procedure:"Reconcile processing inventory to stores; sample 15 stores and 25 deletion requests; inspect retention jobs, legal holds, downstream deletion, vendor attestation, and evidence of completion.", pass:"Retention enforced; deletions complete and traceable; exceptions documented, lawful, approved, and time-bound." }
+];
+
+const roadmap = [
+  { phase:"0–30 days", label:"Validate & contain", tasks:[
+    ["Reconcile crown jewels and Tier-0 services", "CISO + CTO", "High"],
+    ["Inventory privileged, workload, signing, and break-glass identities", "IAM", "Critical"],
+    ["Enforce phishing-resistant MFA for highest-risk access", "IAM", "Critical"],
+    ["Review recovery overrides and add high-risk cooling periods", "Player Security", "Critical"],
+    ["Match internet-facing assets to current CISA KEV", "Vulnerability Mgmt", "Critical"],
+    ["Freeze and expire unowned security exceptions", "GRC", "High"]
+  ]},
+  { phase:"31–60 days", label:"Engineer & evidence", tasks:[
+    ["Deploy JIT/PAM for production and code-signing access", "IAM + Platform", "Critical"],
+    ["Require signed artifacts and release provenance", "DevSecOps", "Critical"],
+    ["Implement risk-tier patch SLAs and exception dashboard", "Vulnerability Mgmt", "High"],
+    ["Map player-data purpose, owner, retention, and deletion", "Privacy + Data", "High"],
+    ["Tier critical vendors and refresh assurance evidence", "Third-Party Risk", "High"],
+    ["Publish service SLOs and dependency ownership", "SRE", "High"]
+  ]},
+  { phase:"61–90 days", label:"Test & govern", tasks:[
+    ["Run build-pipeline compromise tabletop", "Incident Response", "Critical"],
+    ["Complete critical-service restore and DDoS tests", "SRE + IR", "High"],
+    ["Launch executive KRI and risk-acceptance review", "CISO + GRC", "High"],
+    ["Test player recovery, privileged access, and KEV controls", "Internal Audit", "High"],
+    ["Retest gaps and validate evidence quality", "Control Owners", "High"],
+    ["Approve 12-month transformation backlog", "Executive Committee", "Medium"]
+  ]}
+];
+
+function initializeActivisionCase() {
+  const navButtons = document.querySelectorAll("[data-case-target]");
+  const views = document.querySelectorAll(".case-view");
+  navButtons.forEach(button => button.addEventListener("click", () => {
+    navButtons.forEach(item => item.classList.toggle("is-active", item === button));
+    views.forEach(view => view.classList.toggle("is-active", view.id === button.dataset.caseTarget));
+    const nav = button.closest(".case-nav");
+    if (nav && window.scrollY > nav.offsetTop) nav.scrollIntoView({ behavior:"smooth", block:"start" });
+  }));
+
+  const profile = document.getElementById("activision-profile");
+  if (profile) profile.innerHTML = activisionProfile.map(item => `
+    <div class="case-profile-row"><strong>${item.code} · ${item.name}</strong><div class="case-profile-track"><i style="width:${item.value / 4 * 100}%"></i></div><span>${item.value.toFixed(1)}</span></div>`).join("");
+
+  const sourceContainer = document.getElementById("activision-sources");
+  if (sourceContainer) sourceContainer.innerHTML = activisionSources.map(source => `
+    <a class="case-source" href="${source.url}" target="_blank" rel="noreferrer"><span>${source.id}</span><div><strong>${source.title}</strong><small>${source.note}</small></div><b>↗</b></a>`).join("");
+
+  const observed = document.getElementById("observed-controls");
+  if (observed) observed.innerHTML = observedControls.map(item => `
+    <div class="observed-control"><span>✓</span><div><strong>${item.title}</strong><small>${item.note}</small></div><b>${item.ref}</b></div>`).join("");
+
+  initializeActivisionRiskRegister();
+  renderActivisionControls();
+  initializeEvidenceChecklist();
+  renderAuditTests();
+  renderRoadmap();
+
+  document.getElementById("copy-activision-summary")?.addEventListener("click", async event => {
+    const text = `Activision public-data cyber risk assessment — executive summary\n\nActivision operates a global, identity-heavy, always-online entertainment ecosystem where player accounts, source code, game integrity, virtual assets, personal data, and service availability are core business assets. The highest-priority actions are phishing-resistant privileged access, stronger account-recovery fraud controls, trusted software artifacts, risk-tiered KEV remediation, live-service recovery testing, and defensible privacy evidence. This is an independent public-data case study; all internal-control conclusions require client validation.`;
+    await navigator.clipboard.writeText(text);
+    event.currentTarget.textContent = "Copied";
+    setTimeout(() => event.currentTarget.textContent = "Copy executive summary", 1600);
+  });
+  document.getElementById("print-activision-case")?.addEventListener("click", () => window.print());
+}
+
+function riskClass(score) {
+  if (score >= 20) return "risk-critical";
+  if (score >= 15) return "risk-high";
+  if (score >= 8) return "risk-medium";
+  return "risk-low";
+}
+
+function initializeActivisionRiskRegister() {
+  const domain = document.getElementById("activision-risk-domain");
+  const priority = document.getElementById("activision-risk-priority");
+  const search = document.getElementById("activision-risk-search");
+  if (!domain) return;
+  [...new Set(activisionRisks.map(risk => risk.domain))].sort().forEach(value => domain.add(new Option(value, value)));
+  const render = () => renderActivisionRisks(domain.value, priority.value, search.value);
+  [domain, priority, search].forEach(control => control.addEventListener(control.tagName === "INPUT" ? "input" : "change", render));
+  document.getElementById("download-activision-risks")?.addEventListener("click", () => {
+    const headers = ["ID","Risk","Domain","Owner","Likelihood","Impact","Inherent score","Residual hypothesis","Priority","Evidence basis","Scenario","Recommended controls","Metrics","Framework mapping"];
+    const rows = activisionRisks.map(r => [r.id,r.title,r.domain,r.owner,r.likelihood,r.impact,r.likelihood*r.impact,r.residual,r.priority,r.evidence,r.scenario,r.controls,r.metrics,r.mapping]);
+    downloadText("activision-public-data-risk-register.csv", [headers, ...rows].map(row => row.map(csvEscape).join(",")).join("\n"), "text/csv");
+  });
+  render();
+}
+
+function renderActivisionRisks(domain="all", priority="all", query="") {
+  const normalized = query.trim().toLowerCase();
+  const filtered = activisionRisks.filter(risk => (domain === "all" || risk.domain === domain) && (priority === "all" || risk.priority === priority) && (!normalized || [risk.id,risk.title,risk.domain,risk.owner,risk.controls].join(" ").toLowerCase().includes(normalized)));
+  const body = document.getElementById("activision-risk-body");
+  const count = document.getElementById("activision-risk-count");
+  if (count) count.textContent = `${filtered.length} risk${filtered.length === 1 ? "" : "s"}`;
+  if (!body) return;
+  body.innerHTML = filtered.map((risk, index) => {
+    const inherent = risk.likelihood * risk.impact;
+    return `<tr data-risk-id="${risk.id}" class="${index === 0 ? "is-selected" : ""}"><td><strong>${risk.id}</strong></td><td><strong>${risk.title}</strong><small>${risk.scenario.slice(0,105)}…</small></td><td>${risk.domain}</td><td>${risk.owner}</td><td><span class="risk-score ${riskClass(inherent)}">${inherent}</span></td><td><span class="risk-score ${riskClass(risk.residual)}">${risk.residual}</span></td><td>${risk.priority}</td></tr>`;
+  }).join("");
+  body.querySelectorAll("tr").forEach(row => row.addEventListener("click", () => {
+    body.querySelectorAll("tr").forEach(item => item.classList.remove("is-selected"));
+    row.classList.add("is-selected");
+    showActivisionRisk(row.dataset.riskId);
+  }));
+  if (filtered[0]) showActivisionRisk(filtered[0].id); else document.getElementById("activision-risk-detail").innerHTML = "<p>No risks match the selected filters.</p>";
+}
+
+function showActivisionRisk(id) {
+  const risk = activisionRisks.find(item => item.id === id);
+  const detail = document.getElementById("activision-risk-detail");
+  if (!risk || !detail) return;
+  detail.innerHTML = `<div class="risk-detail-grid"><div><p class="eyebrow">${risk.id} · ${risk.domain}</p><h4>${risk.title}</h4><p><strong>Scenario.</strong> ${risk.scenario}</p><p><strong>Public evidence basis.</strong> ${risk.evidence}</p></div><dl><dt>Accountable owner</dt><dd>${risk.owner}</dd><dt>Inherent score</dt><dd>${risk.likelihood} likelihood × ${risk.impact} impact = ${risk.likelihood*risk.impact}</dd><dt>Residual hypothesis</dt><dd>${risk.residual}/25 — requires client validation</dd><dt>Treatment design</dt><dd>${risk.controls}</dd><dt>Management metrics</dt><dd>${risk.metrics}</dd><dt>Framework mapping</dt><dd>${risk.mapping}</dd></dl></div>`;
+}
+
+function renderActivisionControls() {
+  const domains = document.getElementById("activision-control-domains");
+  if (domains) domains.innerHTML = controlDomains.map(domain => `<article class="control-domain"><span>${domain.code}</span><h4>${domain.title}</h4><p>${domain.text}</p><ul>${domain.items.map(item => `<li>${item}</li>`).join("")}</ul></article>`).join("");
+  const crosswalk = document.getElementById("activision-crosswalk");
+  if (crosswalk) crosswalk.innerHTML = controlCrosswalk.map(row => `<tr>${row.map((cell, index) => `<td>${index === 0 ? `<strong>${cell}</strong>` : cell}</td>`).join("")}</tr>`).join("");
+}
+
+function initializeEvidenceChecklist() {
+  const container = document.getElementById("activision-evidence-checklist");
+  if (!container) return;
+  container.innerHTML = evidenceArtifacts.map((item,index) => `<label class="evidence-item"><input type="checkbox" data-evidence-index="${index}"><span><strong>${item[1]}</strong><small>${item[0]}</small></span></label>`).join("");
+  const update = () => {
+    const checks = [...container.querySelectorAll("input")];
+    const done = checks.filter(check => check.checked).length;
+    const pct = Math.round(done / checks.length * 100);
+    document.getElementById("evidence-progress-value").textContent = `${pct}%`;
+    document.getElementById("evidence-progress-count").textContent = `${done} of ${checks.length} artifacts`;
+    document.getElementById("evidence-progress-ring").style.setProperty("--progress", `${pct * 3.6}deg`);
+  };
+  container.addEventListener("change", update);
+  update();
+}
+
+function renderAuditTests() {
+  const container = document.getElementById("activision-test-program");
+  if (!container) return;
+  container.innerHTML = auditTests.map(test => `<article class="test-card"><div class="test-card-head"><span>${test.id}</span><b>Design + operating effectiveness</b></div><h4>${test.title}</h4><p>${test.objective}</p><div class="test-meta"><div><span>Population</span><strong>${test.population}</strong></div><div><span>Procedure</span><strong>${test.procedure}</strong></div><div style="grid-column:1/-1"><span>Pass criteria</span><strong>${test.pass}</strong></div></div></article>`).join("");
+}
+
+function renderRoadmap() {
+  const container = document.getElementById("activision-roadmap-lanes");
+  if (container) container.innerHTML = roadmap.map(lane => `<article class="roadmap-lane"><div class="roadmap-lane-head"><span>${lane.phase}</span><h4>${lane.label}</h4></div>${lane.tasks.map(task => `<div class="roadmap-task"><strong>${task[0]}</strong><p>${task[1]}</p><span>${task[2]}</span></div>`).join("")}</article>`).join("");
+  document.getElementById("download-activision-roadmap")?.addEventListener("click", () => {
+    const rows = [["Phase","Theme","Action","Owner","Priority"], ...roadmap.flatMap(lane => lane.tasks.map(task => [lane.phase,lane.label,task[0],task[1],task[2]]))];
+    downloadText("activision-90-day-cyber-roadmap.csv", rows.map(row => row.map(csvEscape).join(",")).join("\n"), "text/csv");
+  });
+}
+
+
+function initialize() {
+  initializeNav();
+  initializeTabs();
+  initializeKevControls();
+  initializeCsf();
+  initializeIam();
+  initializeCrosswalk();
+  initializeReport();
+  initializeVisualPolish();
+  initializeActivisionCase();
+  loadKevData();
+}
+
+document.addEventListener("DOMContentLoaded", initialize);
+
+</script>
+</body>
+</html>
